@@ -602,6 +602,166 @@
       font-size: 0.82rem;
     }
 
+    .card-maps {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      z-index: 2;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 0;
+      background: rgba(255, 250, 245, 0.94);
+      box-shadow: 0 2px 8px rgba(28, 25, 23, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      line-height: 1;
+      padding: 0;
+      color: var(--ink);
+      touch-action: manipulation;
+    }
+    .card-maps:active { transform: scale(0.94); }
+
+    .list-viewport {
+      overflow: hidden;
+      overscroll-behavior-x: none;
+    }
+    .list {
+      touch-action: pan-y;
+    }
+    .list.is-animating { transition: transform 0.22s ease; }
+    .list.is-swiping { transition: none; }
+
+    #confirmSheet { z-index: 50; }
+
+    .detail-bg {
+      z-index: 30;
+      align-items: center;
+      padding: 16px;
+      padding-top: max(16px, var(--safe-top));
+      padding-bottom: max(16px, var(--safe-bot));
+      background: rgba(28, 25, 23, 0.5);
+      overflow: auto;
+    }
+    .detail-bg[hidden] { display: none; }
+    .detail-card {
+      background: var(--card);
+      width: 100%;
+      max-width: 520px;
+      max-height: min(92dvh, 860px);
+      overflow: auto;
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(28, 25, 23, 0.22);
+      transform: scale(0.94) translateY(16px);
+      opacity: 0.7;
+      transition: transform 0.22s ease, opacity 0.22s ease;
+      border: var(--card-border);
+    }
+    .detail-bg.is-open .detail-card {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+    .detail-cover .cover {
+      aspect-ratio: 16 / 10;
+      border-radius: 20px 20px 0 0;
+    }
+    .detail-body { padding: 14px 16px 18px; }
+    .detail-body h2 {
+      margin: 0;
+      font-size: 1.22rem;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+      flex: 1;
+      min-width: 0;
+      line-height: 1.3;
+    }
+    .detail-meta {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.86rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 10px;
+      align-items: center;
+    }
+    .detail-fields { margin: 14px 0 0; }
+    .detail-row { margin: 0 0 12px; }
+    .detail-row .lbl {
+      display: block;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      margin-bottom: 2px;
+    }
+    .detail-row .val {
+      font-size: 0.95rem;
+      color: var(--ink);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .detail-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .detail-actions button {
+      min-height: 48px;
+      border-radius: 14px;
+      font-weight: 650;
+      border: 0;
+      white-space: nowrap;
+      padding: 0 12px;
+    }
+    .detail-actions .maps { grid-column: 1 / -1; }
+    .detail-actions .maps {
+      background: var(--fab-bg);
+      color: var(--fab-color);
+    }
+    .detail-actions .edit {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--ink);
+    }
+    .detail-actions .close {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+    .detail-actions .been {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: #0f766e;
+    }
+    .detail-actions .been[aria-pressed="true"],
+    .detail-actions .been:disabled {
+      background: var(--teal-soft);
+      border-color: var(--teal);
+      color: #0f766e;
+      opacity: 1;
+      cursor: default;
+    }
+    .detail-actions .revisit {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--ink);
+    }
+    .detail-actions .revisit[aria-pressed="true"] {
+      background: rgba(180, 83, 9, 0.12);
+      border-color: var(--gold);
+      color: #b45309;
+    }
+    .badge.revisit-flag {
+      background: rgba(180, 83, 9, 0.12);
+      color: #b45309;
+      padding: 2px 5px;
+      letter-spacing: 0;
+    }
+    body.detail-open { overflow: hidden; }
+    body.detail-open .fab { visibility: hidden; }
+
   </style>
 </head>
 <body>
@@ -664,10 +824,18 @@
       <label class="budget-field">人均預算上限（泰銖）
         <input id="filterBudget" type="number" min="0" step="50" inputmode="numeric" placeholder="不限">
       </label>
+      <label>還會回去
+        <select id="filterRevisit">
+          <option value="">全部</option>
+          <option value="1">還會回去</option>
+        </select>
+      </label>
     </div>
 
     <div class="count" id="count"></div>
-    <div class="list" id="list"></div>
+    <div class="list-viewport" id="listViewport">
+      <div class="list" id="list"></div>
+    </div>
     <nav class="pager" id="pager" hidden aria-label="分頁"></nav>
   </div>
 
@@ -742,6 +910,27 @@
         <button type="button" class="save" id="btnConfirmYes" style="background:#c2410c">刪除</button>
       </div>
     </div>
+  </div>
+
+  <div class="sheet-bg detail-bg" id="detailSheet" hidden>
+    <article class="detail-card" id="detailCard" role="dialog" aria-modal="true" aria-labelledby="detailName">
+      <div class="detail-cover" id="detailCover"></div>
+      <div class="detail-body">
+        <div class="card-top">
+          <h2 id="detailName"></h2>
+          <div class="card-badges" id="detailBadges"></div>
+        </div>
+        <div class="detail-meta" id="detailMeta"></div>
+        <div class="detail-fields" id="detailFields"></div>
+        <div class="detail-actions">
+          <button type="button" class="maps" id="btnDetailMaps">開 Google Maps</button>
+          <button type="button" class="been" id="btnDetailBeen">已去過</button>
+          <button type="button" class="revisit" id="btnDetailRevisit" aria-pressed="false">還會回去</button>
+          <button type="button" class="edit" id="btnDetailEdit">編輯</button>
+          <button type="button" class="close" id="btnDetailClose">關閉</button>
+        </div>
+      </div>
+    </article>
   </div>
 
   <script>
@@ -829,7 +1018,9 @@
       formStatus: "想去",
       formRating: 0,
       pendingDeleteId: null,
-      page: 1
+      page: 1,
+      detailId: null,
+      detailPushed: false
     };
     var toastTimer = null;
 
@@ -979,15 +1170,24 @@
         notes: String(r.notes || "").trim(),
         maps: String(r.maps || "").trim(),
         photo: /^img\/r\/[A-Za-z0-9._-]+\.webp$/.test(String(r.photo || "").trim()) ? String(r.photo).trim() : "",
+        revisit: r.revisit === true || r.revisit === "true" || r.revisit === 1,
         createdAt: r.createdAt || new Date().toISOString()
       };
     }
 
     function saveItems(items) {
+      var rows = items.map(function (r) {
+        var out = {};
+        Object.keys(r).forEach(function (k) {
+          if (k === "revisit" && !r[k]) return;
+          out[k] = r[k];
+        });
+        return out;
+      });
       localStorage.setItem(STORAGE_KEY, JSON.stringify({
         version: DATA_VERSION,
         seedVersion: SEED_VERSION,
-        restaurants: items
+        restaurants: rows
       }));
     }
 
@@ -1017,7 +1217,8 @@
         status: $("filterStatus").value,
         michelin: $("filterMichelin").value,
         budget: parseMoney($("filterBudget").value),
-        sort: $("sortBy").value
+        sort: $("sortBy").value,
+        revisit: $("filterRevisit") ? $("filterRevisit").value : ""
       };
     }
 
@@ -1040,6 +1241,7 @@
         if (f.area && r.area !== f.area) return false;
         if (f.cuisine && r.cuisine !== f.cuisine) return false;
         if (f.status && r.status !== f.status) return false;
+        if (f.revisit && !r.revisit) return false;
         if (!matchesMichelin(r, f.michelin)) return false;
         if (!withinBudget(r, f.budget)) return false;
         if (f.q) {
@@ -1098,6 +1300,11 @@
       var s = "";
       for (var i = 1; i <= 5; i++) s += '<span class="' + (i <= rating ? "" : "off") + '">★</span>';
       return '<span class="stars" aria-label="評分 ' + rating + ' 分">' + s + "</span>";
+    }
+
+    function revisitBadgeHtml(item) {
+      if (!item || !item.revisit) return "";
+      return '<span class="badge revisit-flag" title="還會回去" aria-label="還會回去">🔁</span>';
     }
 
 
@@ -1294,11 +1501,13 @@
         return (
           '<article class="card" data-id="' + escapeHtml(r.id) + '" tabindex="0" role="button">' +
             coverHtml(cover) +
+            '<button type="button" class="card-maps" data-maps="1" aria-label="開 Google Maps" onclick="event.stopPropagation()">📍</button>' +
             '<div class="card-body">' +
             '<div class="card-top">' +
               "<h2>" + escapeHtml(r.name) + "</h2>" +
               '<div class="card-badges">' +
                 mich +
+                revisitBadgeHtml(r) +
                 '<span class="badge ' + badge + '">' + escapeHtml(r.status) + "</span>" +
               "</div>" +
             "</div>" +
@@ -1347,6 +1556,257 @@
 
     function closeForm() { $("formSheet").hidden = true; }
 
+    function findItem(id) {
+      if (!id) return null;
+      for (var i = 0; i < state.items.length; i++) {
+        if (state.items[i].id === id) return state.items[i];
+      }
+      return null;
+    }
+
+    function renderDetail(item) {
+      if (!item) return;
+      $("detailCover").innerHTML = coverHtml(coverForItem(item));
+      $("detailName").textContent = item.name || "";
+      var badge = item.status === "去過" ? "been" : (item.status === "推薦" ? "rec" : "want");
+      var badges = "";
+      if (item.michelin && item.michelin !== "無") {
+        var cls = item.michelin === "必比登" ? "bib" : "star";
+        badges += '<span class="badge ' + cls + '">' + escapeHtml(item.michelin) + "</span>";
+      }
+      badges += revisitBadgeHtml(item);
+      badges += '<span class="badge ' + badge + '">' + escapeHtml(item.status || "") + "</span>";
+      $("detailBadges").innerHTML = badges;
+      syncDetailActions(item);
+      var meta = [];
+      if (item.cuisine) meta.push("<span>" + escapeHtml(item.cuisine) + "</span>");
+      if (item.area) meta.push("<span>" + escapeHtml(item.area) + "</span>");
+      var baht = formatBahtRange(item.priceMin, item.priceMax);
+      if (baht) meta.push('<span class="price">' + escapeHtml(baht) + "</span>");
+      var stars = starHtml(item.rating);
+      if (stars) meta.push(stars);
+      $("detailMeta").innerHTML = meta.join("");
+      var rows = [];
+      function addRow(label, value) {
+        if (!value) return;
+        rows.push('<div class="detail-row"><span class="lbl">' + escapeHtml(label) + '</span><div class="val">' + escapeHtml(value) + "</div></div>");
+      }
+      addRow("料理", item.cuisine);
+      addRow("區域", item.area);
+      addRow("狀態", item.status);
+      if (item.rating) addRow("評分", "★★★★★".slice(0, item.rating) + "（" + item.rating + " 分）");
+      addRow("人均", baht);
+      addRow("推薦菜", item.dishes);
+      addRow("筆記", item.notes);
+      $("detailFields").innerHTML = rows.join("");
+    }
+
+    function syncDetailActions(item) {
+      var beenBtn = $("btnDetailBeen");
+      if (beenBtn) {
+        var already = !!(item && item.status === "去過");
+        beenBtn.disabled = already;
+        beenBtn.setAttribute("aria-pressed", already ? "true" : "false");
+      }
+      var revBtn = $("btnDetailRevisit");
+      if (revBtn) {
+        var on = !!(item && item.revisit);
+        revBtn.setAttribute("aria-pressed", on ? "true" : "false");
+      }
+    }
+
+    function markBeen() {
+      var item = findItem(state.detailId);
+      if (!item || item.status === "去過") return;
+      upsertItem(normalizeItem(Object.assign({}, item, { status: "去過" })));
+      toast("已標為去過");
+    }
+
+    function toggleRevisit() {
+      var item = findItem(state.detailId);
+      if (!item) return;
+      var on = !item.revisit;
+      upsertItem(normalizeItem(Object.assign({}, item, { revisit: on })));
+      toast(on ? "已標為還會回去" : "已取消還會回去");
+    }
+
+    function openDetail(item) {
+      if (!item) return;
+      state.detailId = item.id;
+      renderDetail(item);
+      var sheet = $("detailSheet");
+      sheet.hidden = false;
+      document.body.classList.add("detail-open");
+      requestAnimationFrame(function () { sheet.classList.add("is-open"); });
+      if (!state.detailPushed) {
+        try {
+          history.pushState({ fhDetail: item.id }, "");
+          state.detailPushed = true;
+        } catch (err) {}
+      }
+    }
+
+    function closeDetail(fromPop) {
+      var sheet = $("detailSheet");
+      if (!sheet || sheet.hidden) {
+        state.detailId = null;
+        document.body.classList.remove("detail-open");
+        return;
+      }
+      sheet.classList.remove("is-open");
+      sheet.hidden = true;
+      document.body.classList.remove("detail-open");
+      state.detailId = null;
+      if (state.detailPushed && !fromPop) {
+        state.detailPushed = false;
+        try { history.back(); } catch (err) {}
+      } else {
+        state.detailPushed = false;
+      }
+    }
+
+    function refreshOpenDetail() {
+      if (!state.detailId) return;
+      var item = findItem(state.detailId);
+      if (item) renderDetail(item);
+      else closeDetail();
+    }
+
+    var swipeState = {
+      active: false,
+      startX: 0,
+      startY: 0,
+      dx: 0,
+      dy: 0,
+      decided: null,
+      pointerId: null,
+      suppressClick: false,
+      animating: false
+    };
+    var swipeTimer = null;
+    var SWIPE_THRESHOLD = 50;
+
+    function listWidth() {
+      var el = $("listViewport") || $("list");
+      return (el && el.getBoundingClientRect().width) || window.innerWidth || 1;
+    }
+
+    function animatePageChange(dir) {
+      var list = $("list");
+      var width = listWidth();
+      var dest = state.page + dir;
+      swipeState.animating = true;
+      list.classList.remove("is-swiping");
+      list.classList.add("is-animating");
+      list.style.transform = "translateX(" + (-dir * width) + "px)";
+      clearTimeout(swipeTimer);
+      swipeTimer = setTimeout(function () {
+        list.classList.remove("is-animating");
+        list.style.transition = "none";
+        list.style.transform = "translateX(" + (dir * width) + "px)";
+        goToPage(dest, false);
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            list.style.transition = "";
+            list.classList.add("is-animating");
+            list.style.transform = "translateX(0)";
+            clearTimeout(swipeTimer);
+            swipeTimer = setTimeout(function () {
+              list.classList.remove("is-animating");
+              list.style.transform = "";
+              swipeState.animating = false;
+            }, 230);
+          });
+        });
+      }, 200);
+    }
+
+    function onSwipePointerDown(e) {
+      if (swipeState.animating) return;
+      if (e.isPrimary === false) return;
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      if (e.target && e.target.closest && e.target.closest(".card-maps")) return;
+      var list = $("list");
+      if (!list.contains(e.target)) return;
+      swipeState.active = true;
+      swipeState.startX = e.clientX;
+      swipeState.startY = e.clientY;
+      swipeState.dx = 0;
+      swipeState.dy = 0;
+      swipeState.decided = null;
+      swipeState.pointerId = e.pointerId;
+    }
+
+    function onSwipePointerMove(e) {
+      if (!swipeState.active || e.pointerId !== swipeState.pointerId) return;
+      swipeState.dx = e.clientX - swipeState.startX;
+      swipeState.dy = e.clientY - swipeState.startY;
+      if (!swipeState.decided) {
+        if (Math.abs(swipeState.dx) < 8 && Math.abs(swipeState.dy) < 8) return;
+        if (Math.abs(swipeState.dx) > Math.abs(swipeState.dy)) {
+          swipeState.decided = "h";
+          $("list").classList.add("is-swiping");
+          try { $("list").setPointerCapture(e.pointerId); } catch (err) {}
+        } else {
+          swipeState.decided = "v";
+        }
+      }
+      if (swipeState.decided === "h") {
+        if (e.cancelable) e.preventDefault();
+        var dx = swipeState.dx;
+        var max = pageCount(filteredItems().length);
+        if ((state.page <= 1 && dx > 0) || (state.page >= max && dx < 0)) dx = dx * 0.28;
+        $("list").style.transform = "translateX(" + dx + "px)";
+      }
+    }
+
+    function onSwipePointerUp(e) {
+      if (!swipeState.active || (e.pointerId != null && e.pointerId !== swipeState.pointerId)) return;
+      var dx = swipeState.dx;
+      var dy = swipeState.dy;
+      var decided = swipeState.decided;
+      swipeState.active = false;
+      swipeState.pointerId = null;
+      var list = $("list");
+      list.classList.remove("is-swiping");
+      var isPageSwipe = decided === "h" && Math.abs(dx) >= SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy);
+      if (decided === "h") {
+        swipeState.suppressClick = true;
+        clearTimeout(swipeState.suppressTimer);
+        swipeState.suppressTimer = setTimeout(function () { swipeState.suppressClick = false; }, 350);
+      }
+      if (isPageSwipe) {
+        var max = pageCount(filteredItems().length);
+        if (dx < 0 && state.page < max) {
+          animatePageChange(1);
+          return;
+        }
+        if (dx > 0 && state.page > 1) {
+          animatePageChange(-1);
+          return;
+        }
+      }
+      if (decided === "h") {
+        list.classList.add("is-animating");
+        list.style.transform = "translateX(0)";
+        clearTimeout(swipeTimer);
+        swipeTimer = setTimeout(function () {
+          list.classList.remove("is-animating");
+          list.style.transform = "";
+        }, 200);
+      } else {
+        list.style.transform = "";
+      }
+    }
+
+    function setupSwipe() {
+      var list = $("list");
+      list.addEventListener("pointerdown", onSwipePointerDown);
+      list.addEventListener("pointermove", onSwipePointerMove, { passive: false });
+      list.addEventListener("pointerup", onSwipePointerUp);
+      list.addEventListener("pointercancel", onSwipePointerUp);
+    }
+
     function syncSegs() {
       Array.prototype.forEach.call($("statusSeg").querySelectorAll("button"), function (btn) {
         btn.setAttribute("aria-pressed", btn.getAttribute("data-status") === state.formStatus ? "true" : "false");
@@ -1378,6 +1838,7 @@
       saveItems(state.items);
       refreshFilterOptions();
       render();
+      refreshOpenDetail();
     }
 
     function deleteItem(id) {
@@ -1385,6 +1846,7 @@
       saveItems(state.items);
       refreshFilterOptions();
       render();
+      if (state.detailId === id) closeDetail();
     }
 
     function exportJson() {
@@ -1466,6 +1928,7 @@
     $("filterMichelin").addEventListener("change", onFilterChange);
     $("filterBudget").addEventListener("input", onFilterChange);
     $("sortBy").addEventListener("change", onFilterChange);
+    $("filterRevisit").addEventListener("change", onFilterChange);
     $("pager").addEventListener("click", function (e) {
       var btn = e.target.closest("button[data-page]");
       if (!btn || btn.disabled) return;
@@ -1518,18 +1981,37 @@
     });
 
     $("list").addEventListener("click", function (e) {
+      var mapsBtn = e.target.closest(".card-maps");
+      if (mapsBtn && $("list").contains(mapsBtn)) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (swipeState.suppressClick) { swipeState.suppressClick = false; return; }
+        var mapsCard = mapsBtn.closest(".card");
+        var mapsItem = mapsCard ? findItem(mapsCard.getAttribute("data-id")) : null;
+        if (mapsItem) window.open(mapsUrl(mapsItem.name, mapsItem.maps), "_blank", "noopener,noreferrer");
+      }
+    }, true);
+    $("list").addEventListener("click", function (e) {
+      if (e.target.closest(".card-maps")) return;
+      if (swipeState.suppressClick) {
+        swipeState.suppressClick = false;
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
       var card = e.target.closest(".card");
       if (!card || !$("list").contains(card)) return;
-      var item = state.items.filter(function (r) { return r.id === card.getAttribute("data-id"); })[0];
-      if (item) openForm(item);
+      var item = findItem(card.getAttribute("data-id"));
+      if (item) openDetail(item);
     });
     $("list").addEventListener("keydown", function (e) {
       if (e.key !== "Enter" && e.key !== " ") return;
+      if (e.target.closest(".card-maps")) return;
       var card = e.target.closest(".card");
       if (!card) return;
       e.preventDefault();
-      var item = state.items.filter(function (r) { return r.id === card.getAttribute("data-id"); })[0];
-      if (item) openForm(item);
+      var item = findItem(card.getAttribute("data-id"));
+      if (item) openDetail(item);
     });
 
     $("btnConfirmNo").addEventListener("click", function () {
@@ -1593,6 +2075,8 @@
         rating: state.formRating,
         notes: $("fNotes").value.trim(),
         maps: $("fMaps").value.trim(),
+        photo: existing ? existing.photo : "",
+        revisit: existing ? existing.revisit : false,
         createdAt: existing ? existing.createdAt : new Date().toISOString()
       });
       upsertItem(item);
@@ -1601,10 +2085,40 @@
     });
 
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") {
-        closeForm();
+      if (e.key !== "Escape") return;
+      if (!$("confirmSheet").hidden) {
         $("confirmSheet").hidden = true;
+        return;
       }
+      if (!$("formSheet").hidden) {
+        closeForm();
+        return;
+      }
+      if ($("detailSheet") && !$("detailSheet").hidden) closeDetail();
+    });
+
+    $("btnDetailMaps").addEventListener("click", function () {
+      var item = findItem(state.detailId);
+      if (!item) return;
+      var url = mapsUrl(item.name, item.maps);
+      if (url) window.open(url, "_blank", "noopener,noreferrer");
+    });
+    $("btnDetailBeen").addEventListener("click", function () { markBeen(); });
+    $("btnDetailRevisit").addEventListener("click", function () { toggleRevisit(); });
+    $("btnDetailEdit").addEventListener("click", function () {
+      var item = findItem(state.detailId);
+      if (item) openForm(item);
+    });
+    $("btnDetailClose").addEventListener("click", function () { closeDetail(); });
+    $("detailSheet").addEventListener("click", function (e) {
+      if (e.target === $("detailSheet")) closeDetail();
+    });
+    window.addEventListener("popstate", function () {
+      if (!state.detailPushed) return;
+      state.detailPushed = false;
+      if (!$("confirmSheet").hidden) $("confirmSheet").hidden = true;
+      if (!$("formSheet").hidden) closeForm();
+      closeDetail(true);
     });
 
     window.FoodHunter = {
@@ -1634,7 +2148,10 @@
       PAGE_SIZE: PAGE_SIZE,
       currentPageSize: currentPageSize,
       layoutCols: layoutCols,
-      goToPage: goToPage
+      goToPage: goToPage,
+      openDetail: openDetail,
+      closeDetail: closeDetail,
+      findItem: findItem
     };
 
     function onViewportChange() {
@@ -1660,6 +2177,7 @@
     refreshFilterOptions();
     lastPageSize = currentPageSize();
     render();
+    setupSwipe();
     maybeShowInstallHint();
     window.addEventListener("resize", scheduleViewportChange);
     window.addEventListener("orientationchange", scheduleViewportChange);
