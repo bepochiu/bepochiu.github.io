@@ -215,6 +215,7 @@
     }
     .badge.want { background: var(--chili-soft); color: #ffb347; }
     .badge.been { background: var(--teal-soft); color: #7dd3c7; }
+    .badge.rec { background: rgba(233, 196, 106, 0.18); color: var(--gold); }
     .meta {
       margin-top: 6px;
       color: var(--muted);
@@ -336,7 +337,7 @@
       display: grid;
       gap: 6px;
     }
-    .seg { grid-template-columns: 1fr 1fr; }
+    .seg { grid-template-columns: 1fr 1fr 1fr; }
     .mich-seg { grid-template-columns: repeat(5, 1fr); }
     .rate-seg { grid-template-columns: 1.15fr repeat(5, 1fr); }
     .seg button, .mich-seg button, .rate-seg button {
@@ -357,6 +358,11 @@
       background: var(--teal-soft);
       border-color: var(--teal);
       color: #7dd3c7;
+    }
+    .seg button[aria-pressed="true"].rec {
+      background: rgba(233, 196, 106, 0.16);
+      border-color: var(--gold);
+      color: var(--gold);
     }
     .mich-seg button[aria-pressed="true"],
     .rate-seg button[aria-pressed="true"] {
@@ -481,6 +487,7 @@
           <option value="">全部狀態</option>
           <option value="想去">想去</option>
           <option value="去過">去過</option>
+          <option value="推薦">推薦</option>
         </select>
       </label>
       <label>米其林／必比登
@@ -546,6 +553,7 @@
         <div class="seg" id="statusSeg">
           <button type="button" class="want" data-status="想去" aria-pressed="true">想去</button>
           <button type="button" class="been" data-status="去過" aria-pressed="false">去過</button>
+          <button type="button" class="rec" data-status="推薦" aria-pressed="false">推薦</button>
         </div>
       </div>
       <div class="field"><span>我的評分</span>
@@ -583,8 +591,8 @@
 
     var STORAGE_KEY = "food-hunter-v1";
     var HINT_KEY = "food-hunter-install-hint-dismissed";
-    var DATA_VERSION = 2;
-    var SEED_VERSION = 2;
+    var DATA_VERSION = 3;
+    var SEED_VERSION = 3;
     var MICHELIN = ["無", "必比登", "米其林一星", "二星", "三星"];
     var MICHELIN_LABELS = { "無": "無", "必比登": "必比登", "米其林一星": "一星", "二星": "二星", "三星": "三星" };
     var STARRED = { "必比登": 1, "米其林一星": 1, "二星": 1, "三星": 1 };
@@ -604,7 +612,54 @@
       { id: "seed-wattana", name: "Wattana Panich", area: "Ekkamai", cuisine: "街頭美食／牛肉麵", dishes: "藥膳牛肉麵；慢燉山羊湯", michelin: "無", priceMin: 80, priceMax: 200, status: "想去", rating: 0, notes: "Ekkamai Road。門口那鍋湯已煮四十多年。一樓沒冷氣，每月最後一個週一公休。", maps: "https://www.google.com/maps/search/?api=1&query=Wattana+Panich+336+Ekkamai+Road+Bangkok", createdAt: "2026-11-13T00:00:00+07:00" },
       { id: "seed-khua-kling", name: "Khua Kling Pak Sod（Thonglor 店）", area: "Thonglor", cuisine: "南泰料理", dishes: "南式乾咖哩絞豬肉（Khua Kling Moo Sab）；黃咖哩椰子嫩芽鱸魚", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Sukhumvit 53。口味正宗很辣。菜單價格另加服務費和 VAT。", maps: "https://www.google.com/maps/search/?api=1&query=Khua+Kling+Pak+Sod+Sukhumvit+53+Bangkok", createdAt: "2026-11-13T00:00:00+07:00" },
       { id: "seed-thien-duong", name: "Thien Duong", area: "Silom", cuisine: "越南菜", dishes: "蝦春捲；牛肉河粉；河內炒魚 chả cá Lã Vọng", michelin: "必比登", priceMin: 390, priceMax: 590, status: "想去", rating: 0, notes: "Sala Daeng 的 Baan Dusit Thani 百年老宅。人均取自官方一人午餐套餐（現價 ฿390，原價 ฿590）。晚餐建議先訂位。", maps: "https://www.google.com/maps/search/?api=1&query=Thien+Duong+Baan+Dusit+Thani+116+Saladaeng+Bangkok", createdAt: "2026-11-13T00:00:00+07:00" },
-      { id: "seed-tuang", name: "Tuang by Chef Yip", area: "Charoen Krung", cuisine: "港式點心", dishes: "蝦餃；腸粉；鹹蛋黃流沙包；芋頭角", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Charoen Krung 89。只開到 15:00，週一公休，週末要早到。", maps: "https://www.google.com/maps/search/?api=1&query=Tuang+Dim+Sum+Charoen+Krung+89+Bangkok", createdAt: "2026-11-13T00:00:00+07:00" }
+      { id: "seed-tuang", name: "Tuang by Chef Yip", area: "Charoen Krung", cuisine: "港式點心", dishes: "蝦餃；腸粉；鹹蛋黃流沙包；芋頭角", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Charoen Krung 89。只開到 15:00，週一公休，週末要早到。", maps: "https://www.google.com/maps/search/?api=1&query=Tuang+Dim+Sum+Charoen+Krung+89+Bangkok", createdAt: "2026-11-13T00:00:00+07:00" },
+      { id: "seed-xin-bbq", since: 3, name: "XIN BBQ", area: "Suan Luang", cuisine: "", dishes: "", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Phatthanakan 25。公開資料不足，料理與人均待補。", maps: "https://www.google.com/maps/search/?api=1&query=XIN%20BBQ%201349%2F7%20Phatthanakan%2025%2C%20Suan%20Luang%2C%20Bangkok%2010250", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-max-beef", since: 3, name: "Max Beef", area: "Bang Sue", cuisine: "日式燒肉", dishes: "", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Pracha Rat Sai 2。日式燒肉，另有自助餐選項，也提供單點，不是只能吃到飽。", maps: "https://www.google.com/maps/search/?api=1&query=Max%20Beef%20166%2C%2048%20Pracha%20Rat%20Sai%202%20Rd%2C%20Khwaeng%20Bang%20Sue%2C%20Bang%20Sue%2C%20Bangkok%2010800", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-terra-nihonmachi", since: 3, name: "Terra Nihonmachi", area: "Khlong Toei", cuisine: "日式居酒屋", dishes: "", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Sukhumvit 26，Nihonmachi 一樓。推薦菜與人均待補。", maps: "https://www.google.com/maps/search/?api=1&query=Terra%20Nihonmachi%20115%2C%201st%20floor%2C%20room%20no%20101%20Sukhumvit%2026%2C%20Khlong%20Tan%2C%20Khlong%20Toei%2C%20Bangkok%2010110", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-terra-thonglor", since: 3, name: "Terra Thonglor", area: "Watthana", cuisine: "日式居酒屋", dishes: "", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Ekkamai Road。福岡風格居酒屋。推薦菜與人均待補。", maps: "https://www.google.com/maps/search/?api=1&query=Terra%20Thonglor%20111%2F4%20Ekkamai%20Rd%2C%20Khwaeng%20Khlong%20Tan%20Nuea%2C%20Watthana%2C%20Bangkok%2010110", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-shanghai-godfather", since: 3, name: "Shanghai Godfather", area: "Bang Rak", cuisine: "上海菜", dishes: "", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Sala Daeng Road。推薦菜與人均待補。", maps: "https://www.google.com/maps/search/?api=1&query=Shanghai%20Godfather%203%2F3%20Sala%20Daeng%20Rd%2C%20Si%20Lom%2C%20Khet%20Bang%20Rak%2C%20Bangkok%2010500", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-la-galette", since: 3, name: "La Galette", area: "Watthana", cuisine: "法式小酒館", dishes: "Ispahan French Toast；Duck Confit；Citrus Scallop Crudo", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Sukhumvit 49/11。全日供應鹹食與甜點的法式小酒館。", maps: "https://www.google.com/maps/search/?api=1&query=La%20Galette%20165%20RQ%2C%204%20%E0%B8%8B%E0%B8%AD%E0%B8%A2%20%E0%B8%AA%E0%B8%B8%E0%B8%82%E0%B8%B8%E0%B8%A1%E0%B8%A7%E0%B8%B4%E0%B8%97%2049%2F11%20Khlong%20Tan%20Nuea%2C%20Watthana%2C%20Bangkok%2010110", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-gasiri", since: 3, name: "Gasiri", area: "Khlong Toei", cuisine: "韓式全桌／全羅道料理", dishes: "Baek-Suk 韓式燉雞（兩人份）；Gogalbi Jeongsik 醬烤鯖魚套餐；炭烤豬肉套餐", michelin: "無", priceMin: 399, priceMax: 499, status: "想去", rating: 0, notes: "Sukhumvit 44，白屋。人均取自一人 Jeongsik 套餐 ฿399–499。Baek-Suk 兩人份 ฿1,500，建議訂位時先預購。", maps: "https://www.google.com/maps/search/?api=1&query=Gasiri%204%20Sukhumvit%2044%20Alley%2C%20Phra%20Khanong%2C%20Khlong%20Toei%2C%20Bangkok%2010110", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-minami-ari", since: 3, name: "Minami at Ari みなみ", area: "Phaya Thai", cuisine: "日本料理", dishes: "", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Ari Samphan 4。推薦菜與人均待補。", maps: "https://www.google.com/maps/search/?api=1&query=Minami%20at%20Ari%20%E3%81%BF%E3%81%AA%E3%81%BF%201%2C%201%20Ari%20Samphan%204%20Alley%2C%20Samsen%20Nai%2C%20Phaya%20Thai%2C%20Bangkok%2010400", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-minamoto-bangna", since: 3, name: "Minamoto Shabu - Bangna", area: "Bang Phli (Samut Prakan)", cuisine: "日式涮涮鍋", dishes: "", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Bang Phli。涮涮鍋套餐（飯與烏龍麵可續），不是吃到飽自助餐。人均待補。", maps: "https://www.google.com/maps/search/?api=1&query=Minamoto%20Shabu%20-%20Bangna%20288%20%E0%B8%AB%E0%B8%A1%E0%B8%B9%E0%B9%88%2013%20%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%99%E0%B8%B2%20%E0%B8%81%E0%B8%A1.7%20%E0%B8%95%E0%B8%B3%E0%B8%9A%E0%B8%A5%20%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B9%81%E0%B8%81%E0%B9%89%E0%B8%A7%2C%20Bangkok%2C%20Bang%20Phli%20District%2C%20Samut%20Prakan%2010540", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-minamoto-thonglor", since: 3, name: "Minamoto Shabu", area: "Watthana", cuisine: "日式涮涮鍋", dishes: "", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Thong Lo。涮涮鍋套餐（飯與烏龍麵可續），不是吃到飽自助餐。人均待補。", maps: "https://www.google.com/maps/search/?api=1&query=Minamoto%20Shabu%20160%2C%2016%20Thong%20Lo%2C%20Khlong%20Tan%20Nuea%2C%20Watthana%2C%20Bangkok%2010110", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-cozy-craft", since: 3, name: "COZY CRAFT ROOM", area: "Bang Phli (Samut Prakan)", cuisine: "義式／融合", dishes: "", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Bang Kaeo，Namdang-Bangplee Rd。推薦菜與人均待補。", maps: "https://www.google.com/maps/search/?api=1&query=COZY%20CRAFT%20ROOM%20%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B9%81%E0%B8%81%E0%B9%89%E0%B8%A7%20333%20%E0%B8%AB%E0%B8%A1%E0%B8%B9%E0%B9%88%205%20Namdang-Bangplee%20Rd%2C%20Tambon%20Bang%20Kaeo%2C%20Bang%20Phli%20District%2C%20Samut%20Prakan%2010540", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-consul-club", since: 3, name: "The Consul Club", area: "Watthana", cuisine: "", dishes: "", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "JLK Tower 30 樓，Sukhumvit Road。料理與人均待補。", maps: "https://www.google.com/maps/search/?api=1&query=The%20Consul%20Club%20B129%20JLK%20Tower%2030th%20Floor%2C%20Units%203001%20Sukhumvit%20Road%2C%20Klong%20Toei%2C%20Nua%2C%20Watthana%2C%20Bangkok%2010110", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-cut-chefs-table", since: 3, name: "CUT Chef’s Table", area: "Phaya Thai", cuisine: "和牛料理", dishes: "", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Phaholyothin 5，Ari 一帶。不是 Lebua 的米其林二星 Chef's Table。推薦菜與人均待補。", maps: "https://www.google.com/maps/search/?api=1&query=CUT%20Chef%E2%80%99s%20Table%2081%2C%20Phaholyothin%205%20Rd%2C%20Phayathai%2C%20Phaya%20Thai%2C%20Bangkok%2010400", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-taifeng", since: 3, name: "ไท่ฟง ข้าวต้มเหลา", area: "Bang Na", cuisine: "泰式粥店／家常菜", dishes: "炒空心菜配脆皮豬肉；菜脯炒蛋；鹽酥雞翅", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Soi Bang Na-Trat 23。傍晚改賣粥火鍋，白粥／斑蘭粥／芋頭粥可續且不另收費。套餐 ฿399 / 599 / 999 看起來是分享餐，故未寫入人均。", maps: "https://www.google.com/maps/search/?api=1&query=%E0%B9%84%E0%B8%97%E0%B9%88%E0%B8%9F%E0%B8%87%20%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B8%95%E0%B9%89%E0%B8%A1%E0%B9%80%E0%B8%AB%E0%B8%A5%E0%B8%B2%2073%20Soi%20Bang%20Na-Trat%2023%2C%20Bang%20Na%20Nuea%2C%20Bang%20Na%2C%20Bangkok%2010260", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-iode", since: 3, name: "iODE", area: "Sathon", cuisine: "法式海鮮小酒館", dishes: "法國海螺 bulot；生干貝；海鮮拼盤", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Soi Si Bamphen，Yen Akat 附近。BK Magazine 有單品起價，但沒有明確人均區間。", maps: "https://www.google.com/maps/search/?api=1&query=iODE%2076%2F8-9%20Soi%20Si%20Bamphen%2C%20Thung%20Maha%20Mek%2C%20Sathon%2C%20Bangkok%2010120", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-scuba-bkk", since: 3, name: "SCUBA BKK", area: "Watthana", cuisine: "法式海鮮／neo-brasserie", dishes: "海鮮拼盤；竹筴魚刺身；肋眼 hanger steak", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Earth Ekamai 106-107。週一至週五 17:00 開始，週末 11:30。人均待補。", maps: "https://www.google.com/maps/search/?api=1&query=SCUBA%20BKK%20Unit%20106-107%2C%20Earth%20Ekamai%2C%207%2F1%20Soi%20Sukhumvit%2063%2C%20Khlong%20Tan%20Nuea%2C%20Watthana%2C%20Bangkok%2010110", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-coda", since: 3, name: "Restaurant Coda Bangkok", area: "Pathum Wan", cuisine: "當代泰菜", dishes: "季節六品海鮮品嚐套餐", michelin: "米其林一星", priceMin: 3490, priceMax: 3490, status: "想去", rating: 0, notes: "Sindhorn Village，Witthayu Road。人均取自六品套餐 ฿3,490++（未含稅與服務費，資料截至 2025-08，2026-07 核對）。須預訂，訂金 ฿1,500 net／人。", maps: "https://www.google.com/maps/search/?api=1&query=Restaurant%20Coda%20Bangkok%20130-132%20Witthayu%20Rd%2C%20Lumphini%2C%20Pathum%20Wan%2C%20Bangkok%2010330", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-baan-tepa", since: 3, name: "Baan Tepa Culinary Space", area: "Bang Kapi", cuisine: "當代泰菜", dishes: "Pla Tod Nam Pla 炸鯧魚配燻魚露；河蝦配 chamuang 與時令水果；Forgotten Cuts 牛肉部位", michelin: "二星", priceMin: 6800, priceMax: 6800, status: "想去", rating: 0, notes: "Ramkhamhaeng Road。人均取自官方七品套餐 ฿6,800++（未含 10% 服務費）。週一、週二公休。", maps: "https://www.google.com/maps/search/?api=1&query=Baan%20Tepa%20Culinary%20Space%20561%20Ramkhamhaeng%20Rd%2C%20Hua%20Mak%2C%20Bang%20Kapi%2C%20Bangkok%2010240", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-cross", since: 3, name: "Cross", area: "Yan Nawa", cuisine: "中法精緻料理", dishes: "中式 11 品套餐", michelin: "無", priceMin: 2888, priceMax: 3399, status: "想去", rating: 0, notes: "Bangkok Square，Rama III。人均取自套餐標價 ฿2,888++，含稅服務費約 ฿3,399 net。週一公休，訂位很難搶。", maps: "https://www.google.com/maps/search/?api=1&query=Cross%20762%20%E0%B9%82%E0%B8%84%E0%B8%A3%E0%B8%87%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%81%E0%B8%AD%E0%B8%81%E0%B8%AA%E0%B9%81%E0%B8%84%E0%B8%A7%E0%B8%A3%E0%B9%8C%202%20Rama%20III%20Rd%2C%20%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B9%82%E0%B8%9E%E0%B8%87%E0%B8%9E%E0%B8%B2%E0%B8%87%20Yan%20Nawa%2C%20Bangkok%2010120", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-lok-toi", since: 3, name: "Lok Toi Hotpot and Gallery", area: "Wang Thonglang", cuisine: "港式火鍋", dishes: "", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Ramkhamhaeng 43/1。港式火鍋套餐，不是吃到飽自助餐。人均待補。", maps: "https://www.google.com/maps/search/?api=1&query=Lok%20Toi%20Hotpot%20and%20Gallery%20Lok%20Toi%20Hot%20Pot%20%E0%B8%AA%E0%B9%82%E0%B8%A1%E0%B8%AA%E0%B8%A3%E0%B8%AB%E0%B8%A1%E0%B8%B9%E0%B9%88%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%98%E0%B8%B2%E0%B8%A3%E0%B8%B2%E0%B8%A3%E0%B8%A1%E0%B8%93%E0%B9%8C%E0%B8%AB%E0%B8%B1%E0%B8%A7%E0%B8%AB%E0%B8%A1%E0%B8%B2%E0%B8%81%20Soi%20Ramkhamhaeng%2043%2F1%2C%20Phlabphla%2C%20Wang%20Thonglang%2C%20Bangkok%2010310", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-carnival-bkk", since: 3, name: "The Carnival BKK", area: "Bang Na", cuisine: "地中海／義式", dishes: "Pizza Margherita；Aglio Olio 手工香腸麵；Salmon Steak", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Soi Sophon。地中海度假屋風格，也有精釀啤酒。人均待補。", maps: "https://www.google.com/maps/search/?api=1&query=The%20Carnival%20BKK%20416%20Soi%20Sophon%2C%20Bang%20Na%20Tai%2C%20Bang%20Na%2C%20Bangkok%2010260", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-saneh-jaan", since: 3, name: "Saneh Jaan", area: "Pathum Wan", cuisine: "精緻泰菜", dishes: "河蝦脆米線；辣椒鹹蛋黃檸檬葉炒鯰魚", michelin: "米其林一星", priceMin: 3200, priceMax: 3600, status: "想去", rating: 0, notes: "Sindhorn Tower，Witthayu Road。人均取自米其林官方文章的五品 ฿3,200++ 與七品 ฿3,600++ 套餐（未含稅與服務費）。", maps: "https://www.google.com/maps/search/?api=1&query=Saneh%20Jaan%20130%20Witthayu%20Rd%2C%20Lumphini%2C%20Pathum%20Wan%2C%20Bangkok%2010330", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-hapot", since: 3, name: "蛤HAPOT(หม้อไฟหอยตลับ)", area: "Huai Khwang", cuisine: "", dishes: "", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Ratchada Niwet Road。公開菜單與人均待補。", maps: "https://www.google.com/maps/search/?api=1&query=%E8%9B%A4HAPOT%28%E0%B8%AB%E0%B8%A1%E0%B9%89%E0%B8%AD%E0%B9%84%E0%B8%9F%E0%B8%AB%E0%B8%AD%E0%B8%A2%E0%B8%95%E0%B8%A5%E0%B8%B1%E0%B8%9A%29%20756%20Ratchada%20Niwet%20Road%2C%20Samsen%20Nok%2C%20Huai%20Khwang%2C%20Bangkok%2010310", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-tieng-na", since: 3, name: "Tieng Na Mahanakhon", area: "Sai Mai", cuisine: "泰式／東北菜", dishes: "", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Phahon Yothin 54/2。推薦菜與人均待補。", maps: "https://www.google.com/maps/search/?api=1&query=Tieng%20Na%20Mahanakhon%2011%20Phahon%20Yothin%2054%2F2%20Alley%2C%20Sai%20Mai%2C%20Bangkok%2010220", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-zen-sensod", since: 3, name: "Zen Sensod", area: "Watthana", cuisine: "泰式鮮米粉／日式融合", dishes: "和牛漢堡咖哩麵；清邁 Nam Ngiao 麵；北式肉末炒飯", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Ekkamai Soi 8，靠近 Big C Ekkamai（原名單無地址，依公開資料補上）。Thaigle 在 2026-08-21 標為暫時停業，出發前請再確認。", maps: "https://www.google.com/maps/search/?api=1&query=Zen%20Sensod%209%2F1%20Ekkamai%20Soi%208%2C%20Khlong%20Tan%2C%20Watthana%2C%20Bangkok%2010110", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-mor-maa-seafood", since: 3, name: "ม.ม้าซีฟู้ด พัทยา", area: "Bang Lamung (Chon Buri)", cuisine: "泰式海鮮", dishes: "", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Pattaya，Na Kluea 一帶。推薦菜與人均待補。", maps: "https://www.google.com/maps/search/?api=1&query=%E0%B8%A1.%E0%B8%A1%E0%B9%89%E0%B8%B2%E0%B8%8B%E0%B8%B5%E0%B8%9F%E0%B8%B9%E0%B9%89%E0%B8%94%20%E0%B8%9E%E0%B8%B1%E0%B8%97%E0%B8%A2%E0%B8%B2%20560%20%E0%B8%A1.4%2C%20Muang%20Pattaya%2C%20Bang%20Lamung%20District%2C%20Chon%20Buri%2020150", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-sia-phochan", since: 3, name: "เซี้ยโภชนา", area: "Lat Phrao", cuisine: "潮州／中菜", dishes: "魚翅；紅燒魚肚", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Chok Chai 4 Road。人均待補。", maps: "https://www.google.com/maps/search/?api=1&query=%E0%B9%80%E0%B8%8B%E0%B8%B5%E0%B9%89%E0%B8%A2%E0%B9%82%E0%B8%A0%E0%B8%8A%E0%B8%99%E0%B8%B2%2052%20102%20Chok%20Chai%204%20Rd%2C%20Lat%20Phrao%2C%20Bangkok%2010230", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-rabieng-tale", since: 3, name: "Rabieng Tale（ระเบียงทะเล）", area: "Bang Pu (Samut Prakan)", cuisine: "海鮮", dishes: "Stir-fried crab with salted egg；แกงส้มไข่ปลาเรียวเซียว；กุ้งแช่น้ำปลา", michelin: "無", priceMin: 500, priceMax: 500, status: "推薦", rating: 0, notes: "米其林指南 2027 仍收錄的selected海鮮餐廳，開業自1992年，坐在紅樹林與海邊吹風吃鹹蛋黃炒蟹與鮮蝦。", maps: "https://www.google.com/maps/search/?api=1&query=Rabieng%20Tale%20887%20Soi%20Thetsaban%20Bang%20Pu%20104%20Samut%20Prakan", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-krua-boonlert", since: 3, name: "Krua Boonlert Bangpu（ครัวบุญเลิศ บางปู）", area: "Bang Pu (Samut Prakan)", cuisine: "泰式", dishes: "ยำไข่แมงดา；ส้มตำปูม้า；ปูนิ่มทอดกระเทียม", michelin: "無", priceMin: 300, priceMax: 500, status: "推薦", rating: 0, notes: "2026年中仍在營業的老字號中央泰菜與海鮮店，有空調與戶外吹風座位，必比登已在2027年版指南中除名。", maps: "https://www.google.com/maps/search/?api=1&query=Krua%20Boonlert%20Bangpu%20251%20Sukhumvit%20Road%20Thai%20Ban%20Mai%20Samut%20Prakan", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-rim-kheun", since: 3, name: "Rim Kheun Seafood (Original)（ริมเขื่อนซีฟู้ด (เจ้าเก่า)）", area: "Pak Nam (Samut Prakan)", cuisine: "海鮮", dishes: "กุ้งแช่น้ำปลา；กุ้งอบวุ้นเส้น；ปูม้านึ่ง", michelin: "無", priceMin: 300, priceMax: 300, status: "推薦", rating: 0, notes: "靠近BTS Pak Nam的老派堤岸海鮮攤，價格比海邊名店親民，適合傍晚坐下吃一桌新鮮蝦蟹。", maps: "https://www.google.com/maps/search/?api=1&query=Rim%20Kheun%20Seafood%20%E0%B9%80%E0%B8%88%E0%B9%89%E0%B8%B2%E0%B9%80%E0%B8%81%E0%B9%88%E0%B8%B2%20858%20Pak%20Nam%20Samut%20Prakan", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-moken-bangpu", since: 3, name: "Moken Bang Pu（มอเกน บางปู）", area: "Bang Pu (Samut Prakan)", cuisine: "海鮮", dishes: "เมี่ยงเคย；ไข่เจียวกุ้งเคย；กุ้งก้ามกรามเผา", michelin: "無", priceMin: 250, priceMax: 500, status: "推薦", rating: 0, notes: "2017年開業的海邊餐廳，有空調與戶外吹風區，冬日傍晚還能看海鷗，蝦膏米醬與烤大蝦是常點組合。", maps: "https://www.google.com/maps/search/?api=1&query=Moken%20Bang%20Pu%20Soi%20Bang%20Pu%20126/2%20Sukhumvit%20Samut%20Prakan", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-sompong-seafood", since: 3, name: "Sompong Seafood（สมพงศ์ ซีฟู้ด）", area: "Pak Nam / Bang Muang (Samut Prakan)", cuisine: "海鮮", dishes: "กรรเชียงปูนึ่ง；กุ้งก้ามกรามเผา；ปลาเก๋านึ่งซีอิ๊ว", michelin: "無", priceMin: null, priceMax: null, status: "推薦", rating: 0, notes: "開業超過20年的大型園林海鮮餐廳，有空調與戶外座位，適合家庭點整桌蒸蟹鉗與烤大蝦。", maps: "https://www.google.com/maps/search/?api=1&query=Sompong%20Seafood%20Restaurant%2027/15%20Srinagarindra%20Road%20Bang%20Muang%20Samut%20Prakan", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-baan-ice-mega", since: 3, name: "Baan Ice Mega Bangna（บ้านไอซ์ เมกาบางนา）", area: "Bang Phli (Mega Bangna, Samut Prakan)", cuisine: "泰式", dishes: "Khanom jeen Khun Ya；Khao yam Khun Pu", michelin: "無", priceMin: 500, priceMax: 1000, status: "推薦", rating: 0, notes: "三星主廚Ice的南泰家常店在Mega Bangna一樓，菜單延續祖母Nakhon Si Thammarat食譜，比訂不到的Sorn容易走進。", maps: "https://www.google.com/maps/search/?api=1&query=Baan%20Ice%20Mega%20Bangna%20FoodWalk%20Bang%20Phli%20Samut%20Prakan", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-tonkatsu-aoki", since: 3, name: "Tonkatsu AOKI Mega Bangna（ทงคัตสึ อาโอกิ เมกาบางนา）", area: "Bang Phli (Mega Bangna, Samut Prakan)", cuisine: "日本料理", dishes: "Rosu katsu (loin) set；Kata set；Ribu set", michelin: "無", priceMin: 690, priceMax: 990, status: "推薦", rating: 0, notes: "東京Tabelog百大豬排店由Maguro Group引進FoodWalk一樓，厚切豬排放三種鹽，是商場裡可單點的正宗日式定食。", maps: "https://www.google.com/maps/search/?api=1&query=Tonkatsu%20AOKI%20Mega%20Bangna%20FoodWalk%20unit%201808%20Bang%20Phli", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-kams-roast", since: 3, name: "Kam's Roast Mega Bangna（แคมส์ โรสต์ เมกาบางนา）", area: "Bang Phli (Mega Bangna, Samut Prakan)", cuisine: "中菜", dishes: "Roast goose；Char siu rice", michelin: "無", priceMin: 250, priceMax: 500, status: "推薦", rating: 0, notes: "香港燒味店在FoodWalk一樓做隔夜醃製風乾的燒鵝與叉燒飯，是商場裡少見的單點粵式燒臘而不是吃到飽。", maps: "https://www.google.com/maps/search/?api=1&query=Kam%27s%20Roast%20Mega%20Bangna%20FoodWalk%201836%20Bang%20Phli%20Samut%20Prakan", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-smith-co", since: 3, name: "Smith & Co. Mega Bangna", area: "Bang Phli (Mega Bangna, Samut Prakan)", cuisine: "西式", dishes: "Truffle Mushroom Burger", michelin: "無", priceMin: null, priceMax: null, status: "推薦", rating: 0, notes: "Mega Bangna一樓的美式義式餐館，招牌是自製漢堡麵包與每日現做鮮義大利麵，商場官網列每日10:00–22:00營業。", maps: "https://www.google.com/maps/search/?api=1&query=Smith%20%26%20Co%20Mega%20Bangna%20Bang%20Phli%20Samut%20Prakan", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-jaguemsong", since: 3, name: "Jaguemsong Mega Bangna（จากึมซอง เมกาบางนา）", area: "Bang Phli (Mega Bangna, Samut Prakan)", cuisine: "韓式", dishes: "Jjamppong；Jajangmyeon；Tteokbokki", michelin: "無", priceMin: 200, priceMax: 400, status: "推薦", rating: 0, notes: "FoodWalk二樓的韓式中華麵店，炸醬麵與辣海鮮湯麵都是單點，不是烤肉吃到飽，一人一碗也很適合。", maps: "https://www.google.com/maps/search/?api=1&query=Jaguemsong%20Mega%20Bangna%20FoodWalk%202108/1%20Bang%20Phli", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-ozone-bangkrajao", since: 3, name: "The Ozone Bangkrajao", area: "Phra Pradaeng / Bang Krachao (Samut Prakan)", cuisine: "咖啡", dishes: "", michelin: "無", priceMin: 100, priceMax: 250, status: "推薦", rating: 0, notes: "2026年7月仍在營業的椰子園河涌咖啡店，竹亭與綠蔭適合騎車歇腳，週二至週日約09:00–18:00，週一公休。", maps: "https://www.google.com/maps/search/?api=1&query=The%20Ozone%20Bangkrajao%20Bang%20Yo%20Phra%20Pradaeng%20Samut%20Prakan", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-jay-fai", since: 3, name: "Jay Fai（เจ๊ไฝ）", area: "Phra Nakhon", cuisine: "街頭美食", dishes: "Crab omelette；Stir-fried seafood drunken noodles (ผัดขี้เมาทะเล)；Stir-fried prawns in yellow curry", michelin: "米其林一星", priceMin: 800, priceMax: 1500, status: "推薦", rating: 0, notes: "米其林2027年續列一星的炭爐街頭泰菜，必點金黃螃蟹蛋餅，只收現金、週三至週六營業，請預留排隊時間。", maps: "https://www.google.com/maps/search/?api=1&query=Jay%20Fai%20327%20Maha%20Chai%20Road%20Phra%20Nakhon%20Bangkok", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-jay-ngor", since: 3, name: "Jay Ngor Beef Noodle（เจ๊ง้อ ก๋วยเตี๋ยวเนื้อ）", area: "Dusit", cuisine: "街頭美食", dishes: "Mixed braised beef with offal (no noodles)；Braised beef noodle soup；Beef tongue", michelin: "必比登", priceMin: 110, priceMax: 150, status: "推薦", rating: 0, notes: "開業70年、第四代經營的杜實牛肉麵，2027年新入選必比登，米其林建議點不加麵的綜合牛雜感受湯頭。", maps: "https://www.google.com/maps/search/?api=1&query=Jay%20Ngor%20Beef%20Noodle%20679%20Nakhon%20Chai%20Si%20Road%20Dusit%20Bangkok", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-gokfayuen", since: 3, name: "Gokfayuen", area: "Thonglor", cuisine: "中菜", dishes: "Shrimp roe tossed noodles；Shrimp wonton noodles；Century egg and pork congee", michelin: "必比登", priceMin: 200, priceMax: 400, status: "推薦", rating: 0, notes: "2027年新入選必比登的香港風味雲吞麵店，自製細麵與進口蝦子撈麵是招牌，Thong Lo 9巷內小店約六七張桌。", maps: "https://www.google.com/maps/search/?api=1&query=Gokfayuen%20161/7%20Soi%20Thong%20Lo%209%20Bangkok", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-juksunchae", since: 3, name: "Juksunchae", area: "Thonglor / Sukhumvit 49", cuisine: "韓式", dishes: "Octopus tubu jigae；Truffle mandu；Bibimbap with crab", michelin: "米其林一星", priceMin: 4190, priceMax: 4190, status: "推薦", rating: 0, notes: "米其林2027年續列一星的12席韓式omakase，2025年遷至Sukhumvit 49，主廚Henry Lee以細緻韓味重新詮釋祖母菜。", maps: "https://www.google.com/maps/search/?api=1&query=Juksunchae%20Town%20Hall%2088/8%20Soi%20Sukhumvit%2049%20Bangkok", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-shirokane-tori-tama", since: 3, name: "Shirokane Tori-Tama", area: "Ekkamai", cuisine: "日本料理", dishes: "Yakitori (beak-to-tail chicken skewers)；Chicken liver pâté with warm baguette", michelin: "無", priceMin: 360, priceMax: 690, status: "推薦", rating: 0, notes: "米其林2027年selected的東京燒鳥分店，吧台看著炭火烤雞各部位，肝醬配熱法國麵包被指南寫成必點；週日公休。", maps: "https://www.google.com/maps/search/?api=1&query=Shirokane%20Tori-Tama%20Park%20Lane%2018%20Soi%20Sukhumvit%2063%20Ekkamai%20Bangkok", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-giglio", since: 3, name: "Giglio Trattoria Fiorentina（จิลโย ทรัตโตเรีย ฟิออเรนตินา）", area: "Sathon / Silom", cuisine: "西式", dishes: "Pici with pecorino fondue and fresh truffle；Squid-ink risotto with cuttlefish；Tuscan salumi and cheese", michelin: "無", priceMin: 1000, priceMax: 2000, status: "推薦", rating: 0, notes: "米其林2027年selected的托斯卡尼餐館，主廚出自Bottega di Luca與Appia，每日現做義大利麵，建議先訂位。", maps: "https://www.google.com/maps/search/?api=1&query=Giglio%20Trattoria%20Fiorentina%20149%20Soi%20Sathon%2012%20Bangkok", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-factory-coffee", since: 3, name: "Factory Coffee Phayathai", area: "Phaya Thai", cuisine: "咖啡", dishes: "", michelin: "無", priceMin: null, priceMax: null, status: "推薦", rating: 0, notes: "泰國冠軍咖啡師與烘焙團隊的Phayathai本店，官網列每日08:00–16:00（最晚點單16:00），靠近BTS Phaya Thai。", maps: "https://www.google.com/maps/search/?api=1&query=Factory%20Coffee%2049%20Phayathai%20Road%20Ratchathewi%20Bangkok", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-mae-thum", since: 3, name: "Mae Thum Padthai Kheng（แม่ถมผัดไทยเข่ง）", area: "Phra Nakhon", cuisine: "街頭美食", dishes: "Crispy noodle pad thai；Pad thai (six authentic variations)", michelin: "必比登", priceMin: null, priceMax: null, status: "推薦", rating: 0, notes: "2027年新入選必比登，在市政府附近只做六種正統炒河粉，米其林點名酥脆蛋麵版配濃郁醬汁與鮮檸最令人滿足；週日公休。", maps: "https://www.google.com/maps/search/?api=1&query=Mae%20Thum%20Padthai%20Kheng%206/3%20Siriphong%20Road%20Samran%20Rat%20Bangkok", createdAt: "2026-11-13T02:30:00+07:00" },
+      { id: "seed-sane", since: 3, name: "SANE", area: "Taling Chan", cuisine: "泰式", dishes: "", michelin: "必比登", priceMin: null, priceMax: null, status: "推薦", rating: 0, notes: "2027年新入選必比登的家庭式泰菜，位在Taling Chan，指南把它列為適合帶家人、價位中等的泰國菜。", maps: "https://www.google.com/maps/search/?api=1&query=SANE%20219/2%20Bang%20Chueak%20Nang%20Road%20Taling%20Chan%20Bangkok", createdAt: "2026-11-13T02:30:00+07:00" }
     ];
 
     var state = {
@@ -687,19 +742,32 @@
       return null;
     }
 
-    function mergeSeedUpdates(items) {
-      var byId = {};
-      SEED.forEach(function (s) { byId[s.id] = s; });
-      return items.map(function (item) {
-        var seed = byId[item.id];
+    function mergeSeedUpdates(items, fromSeedVersion) {
+      var have = {};
+      items.forEach(function (item) { have[item.id] = true; });
+      var seedById = {};
+      SEED.forEach(function (s) { seedById[s.id] = s; });
+      var updated = items.map(function (item) {
+        var seed = seedById[item.id];
         if (!seed) return item;
-        return normalizeItem(Object.assign({}, item, {
-          dishes: seed.dishes,
-          michelin: seed.michelin,
-          priceMin: seed.priceMin,
-          priceMax: seed.priceMax
-        }));
+        var patch = {};
+        if (!item.dishes && seed.dishes) patch.dishes = seed.dishes;
+        if (!item.michelin && seed.michelin) patch.michelin = seed.michelin;
+        if (item.priceMin == null && seed.priceMin != null) patch.priceMin = seed.priceMin;
+        if (item.priceMax == null && seed.priceMax != null) patch.priceMax = seed.priceMax;
+        if (!item.maps && seed.maps) patch.maps = seed.maps;
+        if (!item.area && seed.area) patch.area = seed.area;
+        if (!item.cuisine && seed.cuisine) patch.cuisine = seed.cuisine;
+        if (!Object.keys(patch).length) return item;
+        return normalizeItem(Object.assign({}, item, patch));
       });
+      SEED.forEach(function (s) {
+        var introduced = s.since || 1;
+        if (!have[s.id] && introduced > fromSeedVersion) {
+          updated.push(normalizeItem(clone(s)));
+        }
+      });
+      return updated;
     }
 
     function loadItems() {
@@ -709,7 +777,7 @@
           var packed = unpackStore(JSON.parse(raw));
           if (packed) {
             var items = packed.items.map(normalizeItem);
-            if (packed.seedVersion < SEED_VERSION) items = mergeSeedUpdates(items);
+            if (packed.seedVersion < SEED_VERSION) items = mergeSeedUpdates(items, packed.seedVersion);
             saveItems(items);
             return items;
           }
@@ -722,11 +790,12 @@
 
     function normalizeItem(r) {
       r = r || {};
+      delete r.since;
       var rating = Number(r.rating);
       if (!isFinite(rating) || rating < 0) rating = 0;
       if (rating > 5) rating = 5;
       rating = Math.round(rating);
-      var status = r.status === "去過" ? "去過" : "想去";
+      var status = (r.status === "去過" || r.status === "推薦") ? r.status : "想去";
       var min = parseMoney(r.priceMin);
       var max = parseMoney(r.priceMax);
       if (min != null && max != null && min > max) {
@@ -885,7 +954,7 @@
 
       $("list").innerHTML = list.map(function (r) {
         var href = escapeHtml(mapsUrl(r.name, r.maps));
-        var badge = r.status === "去過" ? "been" : "want";
+        var badge = r.status === "去過" ? "been" : (r.status === "推薦" ? "rec" : "want");
         var mich = "";
         if (r.michelin && r.michelin !== "無") {
           var cls = r.michelin === "必比登" ? "bib" : "star";
