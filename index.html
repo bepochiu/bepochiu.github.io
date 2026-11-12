@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1a1410">
+  <meta name="color-scheme" content="dark">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="美食獵人">
+  <meta name="description" content="Bepo 的曼谷口袋美食名單">
+  <title>美食獵人 · 曼谷</title>
+  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAADnElEQVR4nOWbP2gUQRTG30YLiyMKWgnaGOwvRQ4rg3gYbZJauFK5OtgZLTTpgvWhdkI6wTRRQcJZhVyR9BGbFFedcB4INqLFMZu3s2/+z+zMnl+TvZvZ3ff99r03u3e5DAx09cqlvybzY2k4Gme6c5UT62JaJBWMOdlg3c0DqD2QdGbBOCUqG0oZMKvmAWhvmWqCqz69Wsq3V9YHvg9vJZwJzgBOvj7Lt2/eflkYw+aZUoCAAeQl4Gqeek2JglK1sNc5/g1X6UBIQcyzdBm0FYMgSvcUsoDJCQBf85RW1gckiFQgZL7Sn0p9DEhkOHZT9FYCVDZgKLGNihSkB2CpIMQuBa8ARD0hZQjeM0AHAqVYEIKUgGp1SKkfBOsBNk0xRhYEbYJ1gBB8FaCUUj8IDkDVFGP3g0oywAZCVVlQWQnYrAxVQKi0B6iaIqXQECpvgjIIMfpBlFWAUqx+4O1xmNf3o9dG8//0P5beO7d8P9/+1n8bJEOcAfBGL1xePDQ9xq/3Wy3ZOAbB68biY9PTFWQMgLqyNqZF+v3jKIeBs0IGAcsUiDYAUUrz5pmBn08f5u89OZwv7LPdmkCj3QEAgO7mLrw7HuTH6DSXStnQ21gFAH0IAPogtACo6vnR3W7h9XZrAgBl4/w4L9F8BgBgCozpzZeeNC4dCEoAIvO8aSaReZFpkfj9GQQMAEsEQwXBahkUmQeYBq4y32h3oNHuFOa5ApPFJJMSwOS0b3VgJmyEgoOlGjeVTuxKAM21ndKBVLWHxUxRxnBtU/uYiI9pctqH5tqOcj+tJnj84ayjz19fLo3bpF9vYxW6m7vKhikTdSHwxQoCAADgYG8/377XfSHcTwVG17ws4z73nufbtx7cKYx5AwBQhIABiCQDA3B2n3BxSx0kQNGoSBiAjnkAgPNasyykDPjawvSvhrGQ0l4GdYmmIJNYre4D+FpLQbYxJfN5QCwZAahDGZjGaJ0BKZWBSyzGADDhFCDYLH1Yzj0gJgQf57YCkGIvsI3JyyoQIwt8ndMaAE+8Sgg29/wieb0PqAKC73M4fyzOPymKpPMAhaVr1LUfBXsY4iUydLC3H3UlccoA3asfWk49wOQHRj5P7EsuMQxH48y5CcaE4OPcGYC/f5evqiR8QR+Oxlme/qG+JXaFEirDWOkH/81QiiJ/MvO/qgDAZUWoi3iPpQyYZQiUN6nZWekJsosq7QGzkA0qD0YG65IRJhfuHzeEjVxaQrUWAAAAAElFTkSuQmCC">
+  <link rel="apple-touch-icon" href="data:image/png;base64,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">
+  <style>
+    :root {
+      --bg: #1a1410;
+      --bg-elev: #241c16;
+      --card: #2e241c;
+      --card-hover: #382c22;
+      --line: rgba(244, 213, 141, 0.14);
+      --ink: #f6efe4;
+      --muted: #b8a894;
+      --gold: #e9c46a;
+      --gold-dim: #c4a35a;
+      --chili: #e85d04;
+      --chili-soft: rgba(232, 93, 4, 0.16);
+      --teal: #2a9d8f;
+      --teal-soft: rgba(42, 157, 143, 0.16);
+      --danger: #e76f51;
+      --danger-soft: rgba(231, 111, 81, 0.16);
+      --shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+      --radius: 18px;
+      --font: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", "Helvetica Neue", system-ui, sans-serif;
+      --display: "Iowan Old Style", "Songti TC", "PMingLiU", "LiSong Pro", "Hiragino Mincho ProN", Georgia, serif;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bot: env(safe-area-inset-bottom, 0px);
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.45;
+      min-height: 100%;
+    }
+    body {
+      min-height: 100dvh;
+      padding-bottom: calc(96px + var(--safe-bot));
+    }
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: 16px;
+      color: inherit;
+    }
+    button { cursor: pointer; }
+    a { color: var(--gold); }
+
+    .wrap {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: calc(12px + var(--safe-top)) 16px 0;
+    }
+
+    header.app-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      min-width: 0;
+    }
+    .logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: #1a1410 center/cover no-repeat;
+      box-shadow: 0 0 0 1px var(--line), var(--shadow);
+      flex-shrink: 0;
+    }
+    .brand h1 {
+      margin: 0;
+      font-family: var(--display);
+      font-size: 1.45rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .brand .sub {
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-top: 1px;
+    }
+    .head-actions { display: flex; gap: 8px; flex-shrink: 0; }
+    .ghost {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 8px 12px;
+      min-height: 40px;
+    }
+    .ghost:active { background: var(--card); color: var(--ink); }
+
+    .hint {
+      background: var(--chili-soft);
+      border: 1px solid rgba(232, 93, 4, 0.28);
+      color: var(--ink);
+      border-radius: 14px;
+      padding: 10px 12px;
+      font-size: 0.85rem;
+      margin-bottom: 14px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .hint button {
+      margin-left: auto;
+      background: none;
+      border: 0;
+      color: var(--muted);
+      padding: 0 4px;
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+    .hint[hidden], .install-hint[hidden] { display: none; }
+
+    .search {
+      width: 100%;
+      background: var(--bg-elev);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 14px 12px 42px;
+      outline: none;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='none' stroke='%23b8a894' stroke-width='1.8' stroke-linecap='round'><circle cx='9' cy='9' r='6'/><path d='M13.5 13.5 L17 17'/></svg>");
+      background-repeat: no-repeat;
+      background-position: 14px 50%;
+    }
+    .search:focus { border-color: var(--gold-dim); }
+
+    .filters {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin: 12px 0 6px;
+    }
+    .filters label {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+    .filters select {
+      background: var(--bg-elev);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 28px 10px 10px;
+      min-height: 44px;
+      appearance: none;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='%23b8a894'><path d='M0 0l6 8 6-8z'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+    }
+
+    .count {
+      color: var(--muted);
+      font-size: 0.8rem;
+      margin: 8px 2px 12px;
+    }
+
+    .list { display: flex; flex-direction: column; gap: 10px; }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px 14px 12px;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.03) inset;
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+    }
+    .card:active { background: var(--card-hover); }
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .card h2 {
+      margin: 0;
+      font-size: 1.08rem;
+      font-weight: 650;
+      letter-spacing: 0.01em;
+      flex: 1;
+      min-width: 0;
+    }
+    .badge {
+      flex-shrink: 0;
+      font-size: 0.72rem;
+      font-weight: 600;
+      border-radius: 999px;
+      padding: 3px 8px;
+      letter-spacing: 0.04em;
+    }
+    .badge.want { background: var(--chili-soft); color: #ffb347; }
+    .badge.been { background: var(--teal-soft); color: #7dd3c7; }
+    .meta {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 10px;
+    }
+    .meta span { white-space: nowrap; }
+    .price { color: var(--gold); font-weight: 600; letter-spacing: 0.08em; }
+    .stars { color: var(--gold); letter-spacing: 0.04em; }
+    .stars .off { opacity: 0.28; }
+    .notes {
+      margin-top: 8px;
+      font-size: 0.86rem;
+      color: #e4d7c5;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .card-actions button {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 6px 12px;
+      min-height: 36px;
+    }
+    .card-actions button:active { background: var(--bg-elev); color: var(--ink); }
+    .card-actions .del:active { color: var(--danger); border-color: var(--danger); }
+
+    .empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 48px 12px;
+      border: 1px dashed var(--line);
+      border-radius: var(--radius);
+    }
+    .empty strong { color: var(--ink); display: block; margin-bottom: 6px; font-size: 1.05rem; }
+
+    .fab {
+      position: fixed;
+      right: max(16px, env(safe-area-inset-right));
+      bottom: calc(20px + var(--safe-bot));
+      background: var(--chili);
+      color: #fff8f0;
+      border: 0;
+      border-radius: 999px;
+      padding: 14px 20px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      box-shadow: 0 10px 24px rgba(232, 93, 4, 0.4);
+      z-index: 20;
+    }
+    .fab:active { transform: translateY(1px); }
+
+    .sheet-bg {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 40;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .sheet-bg[hidden] { display: none; }
+    .sheet {
+      background: var(--bg-elev);
+      width: 100%;
+      max-width: 560px;
+      max-height: min(92dvh, 820px);
+      overflow: auto;
+      border-radius: 24px 24px 0 0;
+      padding: 10px 16px calc(20px + var(--safe-bot));
+      box-shadow: var(--shadow);
+    }
+    .grab {
+      width: 40px;
+      height: 4px;
+      border-radius: 4px;
+      background: var(--line);
+      margin: 4px auto 10px;
+    }
+    .sheet h3 {
+      margin: 0 0 14px;
+      font-family: var(--display);
+      font-size: 1.25rem;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .field span {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .field input, .field select, .field textarea {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 11px 12px;
+      outline: none;
+      width: 100%;
+    }
+    .field textarea { min-height: 88px; resize: vertical; }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: var(--gold-dim);
+    }
+    .seg, .mich-seg, .rate-seg {
+      display: grid;
+      gap: 6px;
+    }
+    .seg { grid-template-columns: 1fr 1fr; }
+    .mich-seg { grid-template-columns: repeat(5, 1fr); }
+    .rate-seg { grid-template-columns: 1.15fr repeat(5, 1fr); }
+    .seg button, .mich-seg button, .rate-seg button {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 6px;
+      min-height: 44px;
+      color: var(--muted);
+    }
+    .mich-seg button, .rate-seg button { padding: 10px 4px; font-size: 0.78rem; }
+    .seg button[aria-pressed="true"].want {
+      background: var(--chili-soft);
+      border-color: var(--chili);
+      color: #ffb347;
+    }
+    .seg button[aria-pressed="true"].been {
+      background: var(--teal-soft);
+      border-color: var(--teal);
+      color: #7dd3c7;
+    }
+    .mich-seg button[aria-pressed="true"],
+    .rate-seg button[aria-pressed="true"] {
+      background: rgba(233, 196, 106, 0.16);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .range-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 8px;
+      align-items: center;
+    }
+    .range-row .sep { color: var(--muted); }
+    .range-row input { min-width: 0; }
+    .badge.bib { background: rgba(233, 196, 106, 0.18); color: #e9c46a; }
+    .badge.star { background: rgba(232, 93, 4, 0.16); color: #ffb347; }
+    .card-badges { display: flex; flex-wrap: wrap; gap: 6px; flex-shrink: 0; justify-content: flex-end; }
+    .dishes {
+      margin-top: 8px;
+      font-size: 0.86rem;
+      color: #e4d7c5;
+    }
+    .dishes .lbl { color: var(--gold-dim); font-size: 0.72rem; letter-spacing: 0.04em; margin-right: 4px; }
+    input[type="number"] {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 11px 12px;
+      outline: none;
+      width: 100%;
+      min-height: 44px;
+    }
+    input[type="number"]:focus { border-color: var(--gold-dim); }
+    .budget-field input { margin-top: 4px; }
+    .sheet-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .sheet-actions button {
+      flex: 1;
+      min-height: 48px;
+      border-radius: 14px;
+      border: 0;
+      font-weight: 650;
+    }
+    .sheet-actions .cancel {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+    .sheet-actions .save {
+      background: var(--chili);
+      color: #fff8f0;
+    }
+    .err { color: var(--danger); font-size: 0.82rem; min-height: 1.2em; margin: 0 0 8px; }
+
+    .confirm {
+      text-align: center;
+      padding: 8px 8px 4px;
+    }
+    .confirm p { margin: 0 0 16px; color: var(--ink); }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: calc(88px + var(--safe-bot));
+      transform: translateX(-50%);
+      background: #3a2f24;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      z-index: 60;
+      box-shadow: var(--shadow);
+      max-width: calc(100% - 32px);
+      text-align: center;
+    }
+    .toast[hidden] { display: none; }
+
+    @media (min-width: 640px) {
+      .sheet-bg { align-items: center; padding: 24px; }
+      .sheet { border-radius: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="app-head">
+      <div class="brand">
+        <div class="logo" id="appLogo" role="img" aria-label="美食獵人"></div>
+        <div>
+          <h1>美食獵人</h1>
+          <div class="sub">曼谷口袋名單</div>
+        </div>
+      </div>
+      <div class="head-actions">
+        <button type="button" class="ghost" id="btnExport">匯出</button>
+        <button type="button" class="ghost" id="btnImport">匯入</button>
+        <input type="file" id="importFile" accept="application/json,.json" hidden>
+      </div>
+    </header>
+
+    <div class="hint install-hint" id="installHint" hidden>
+      <div>用 Safari 或 Chrome 打開後，點「分享／選單」再選「加入主畫面」，就可以當 App 使用，離線也能看名單。</div>
+      <button type="button" id="dismissInstall" aria-label="關閉">×</button>
+    </div>
+
+    <input class="search" id="search" type="search" placeholder="搜尋店名、區域、料理、推薦菜或筆記" enterkeyhint="search" autocomplete="off">
+
+    <div class="filters">
+      <label>區域
+        <select id="filterArea"></select>
+      </label>
+      <label>料理
+        <select id="filterCuisine"></select>
+      </label>
+      <label>狀態
+        <select id="filterStatus">
+          <option value="">全部狀態</option>
+          <option value="想去">想去</option>
+          <option value="去過">去過</option>
+        </select>
+      </label>
+      <label>米其林／必比登
+        <select id="filterMichelin">
+          <option value="">全部</option>
+          <option value="必比登或星級">必比登或星級</option>
+          <option value="必比登">必比登</option>
+          <option value="米其林一星">米其林一星</option>
+          <option value="二星">二星</option>
+          <option value="三星">三星</option>
+          <option value="無">無</option>
+        </select>
+      </label>
+      <label>排序
+        <select id="sortBy">
+          <option value="newest">最新</option>
+          <option value="rating">評分</option>
+          <option value="price">人均</option>
+        </select>
+      </label>
+      <label class="budget-field">人均預算上限（泰銖）
+        <input id="filterBudget" type="number" min="0" step="50" inputmode="numeric" placeholder="不限">
+      </label>
+    </div>
+
+    <div class="count" id="count"></div>
+    <div class="list" id="list"></div>
+  </div>
+
+  <button type="button" class="fab" id="btnAdd">＋ 新增餐廳</button>
+  <div class="toast" id="toast" hidden></div>
+
+  <div class="sheet-bg" id="formSheet" hidden>
+    <form class="sheet" id="restoForm" autocomplete="off">
+      <div class="grab"></div>
+      <h3 id="formTitle">新增餐廳</h3>
+      <input type="hidden" id="editId">
+      <label class="field">店名
+        <input id="fName" name="name" required maxlength="120" placeholder="例如 Krua Apsorn">
+      </label>
+      <label class="field">區域
+        <input id="fArea" name="area" maxlength="80" placeholder="例如 Thonglor" list="areaList">
+      </label>
+      <datalist id="areaList"></datalist>
+      <label class="field">料理類型
+        <input id="fCuisine" name="cuisine" maxlength="80" placeholder="例如 南泰料理" list="cuisineList">
+      </label>
+      <datalist id="cuisineList"></datalist>
+      <label class="field">推薦菜
+        <textarea id="fDishes" name="dishes" maxlength="400" placeholder="例如 蝦餃、腸粉、流沙包"></textarea>
+      </label>
+      <div class="field"><span>米其林</span>
+        <div class="mich-seg" id="michSeg"></div>
+      </div>
+      <div class="field"><span>人均（泰銖）</span>
+        <div class="range-row">
+          <input id="fPriceMin" type="number" min="0" step="10" inputmode="numeric" placeholder="最低">
+          <span class="sep">–</span>
+          <input id="fPriceMax" type="number" min="0" step="10" inputmode="numeric" placeholder="最高">
+        </div>
+      </div>
+      <div class="field"><span>狀態</span>
+        <div class="seg" id="statusSeg">
+          <button type="button" class="want" data-status="想去" aria-pressed="true">想去</button>
+          <button type="button" class="been" data-status="去過" aria-pressed="false">去過</button>
+        </div>
+      </div>
+      <div class="field"><span>我的評分</span>
+        <div class="rate-seg" id="rateSeg"></div>
+      </div>
+      <label class="field">Google Maps 連結
+        <input id="fMaps" name="maps" maxlength="500" placeholder="沒填會自動用店名搜尋曼谷" inputmode="url">
+      </label>
+      <label class="field">筆記
+        <textarea id="fNotes" name="notes" maxlength="800" placeholder="訂位、營業時間、心得…"></textarea>
+      </label>
+      <p class="err" id="formErr"></p>
+      <div class="sheet-actions">
+        <button type="button" class="cancel" id="btnCancel">取消</button>
+        <button type="submit" class="save">儲存</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="sheet-bg" id="confirmSheet" hidden>
+    <div class="sheet confirm" role="dialog" aria-labelledby="confirmTitle">
+      <div class="grab"></div>
+      <h3 id="confirmTitle">刪除這家餐廳？</h3>
+      <p id="confirmMsg"></p>
+      <div class="sheet-actions">
+        <button type="button" class="cancel" id="btnConfirmNo">取消</button>
+        <button type="button" class="save" id="btnConfirmYes" style="background:#c2410c">刪除</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    "use strict";
+
+    var STORAGE_KEY = "food-hunter-v1";
+    var HINT_KEY = "food-hunter-install-hint-dismissed";
+    var DATA_VERSION = 2;
+    var SEED_VERSION = 2;
+    var MICHELIN = ["無", "必比登", "米其林一星", "二星", "三星"];
+    var MICHELIN_LABELS = { "無": "無", "必比登": "必比登", "米其林一星": "一星", "二星": "二星", "三星": "三星" };
+    var STARRED = { "必比登": 1, "米其林一星": 1, "二星": 1, "三星": 1 };
+    var ICON192 = "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";
+    var ICON512 = "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";
+
+    var SEED = [
+      { id: "seed-dark", name: "D'ARK", area: "ICONSIAM", cuisine: "西式 bistro／漢堡牛排", dishes: "Bunless Double Chicken Burger；Josper 炭烤澳洲黑安格斯肋眼", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "ICONSIAM G樓 The Veranda，面河露台。可訂位 02 078 1879。", maps: "https://maps.app.goo.gl/Yksa3a7Ev7JARkZm6", createdAt: "2026-11-12T12:00:00+07:00" },
+      { id: "seed-bread-street", name: "Bread Street Kitchen & Bar", area: "ICONSIAM", cuisine: "英式／Gordon Ramsay", dishes: "炸魚薯條；Beef Wellington；sticky toffee pudding", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "ICONSIAM 3樓 314。適合招待外國朋友。可用 TableCheck 訂位。", maps: "https://www.google.com/maps/search/?api=1&query=Bread+Street+Kitchen+ICONSIAM+Bangkok", createdAt: "2026-11-12T12:00:00+07:00" },
+      { id: "seed-fallabella", name: "Fallabella River Front", area: "ICONSIAM", cuisine: "西式／義式披薩", dishes: "", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "ICONSIAM 6樓 Tasana Nakorn Terrace，露天河景。中午可能很熱。", maps: "https://www.google.com/maps/search/?api=1&query=Fallabella+River+Front+ICONSIAM+Bangkok", createdAt: "2026-11-12T12:00:00+07:00" },
+      { id: "seed-greyhound", name: "Greyhound Café ICONSIAM", area: "ICONSIAM", cuisine: "泰西混合咖啡廳", dishes: "", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "ICONSIAM 2樓 211，有河景座位。線上訂位需提前 24 小時。", maps: "https://www.google.com/maps/search/?api=1&query=Greyhound+Cafe+ICONSIAM+Bangkok", createdAt: "2026-11-12T12:00:00+07:00" },
+      { id: "seed-25-degrees", name: "25 Degrees", area: "Silom", cuisine: "美式漢堡 diner", dishes: "Number One Burger（焦糖洋蔥、gorgonzola、培根）", michelin: "無", priceMin: 380, priceMax: 495, status: "想去", rating: 0, notes: "Pullman Bangkok Hotel G 一樓，24 小時營業。人均取自平日午餐套餐（漢堡、薯條加飲料）。可打 02 352 4192 訂位。", maps: "https://www.google.com/maps/search/?api=1&query=25+Degrees+Pullman+Bangkok+Hotel+G", createdAt: "2026-11-12T12:00:00+07:00" },
+      { id: "seed-bun-meat", name: "Bun Meat & Cheese", area: "Silom", cuisine: "美式漢堡", dishes: "", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "The Commons Saladaeng。不能訂位，座位是美食廣場式，比較吵。", maps: "https://www.google.com/maps/search/?api=1&query=Bun+Meat+%26+Cheese+The+Commons+Saladaeng", createdAt: "2026-11-12T12:00:00+07:00" },
+      { id: "seed-no-drama", name: "No Drama Burger", area: "Chong Nonsi", cuisine: "Smash burger", dishes: "Smash Triple Cheeseburger；PBB Burger", michelin: "無", priceMin: 299, priceMax: 399, status: "想去", rating: 0, notes: "Silom Soi Phiphat 2。店小座位少，不能訂位。人均取自 Time Out 列出的兩份推薦漢堡售價。", maps: "https://www.google.com/maps/search/?api=1&query=No+Drama+Burger+Bangkok", createdAt: "2026-11-12T12:00:00+07:00" },
+      { id: "seed-arnos", name: "Arno's Butcher and Eatery (Narathiwat 20)", area: "Narathiwat", cuisine: "牛排館／漢堡", dishes: "", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Narathiwat Soi 20。適合坐下來慢慢吃。可線上訂位。", maps: "https://www.google.com/maps/search/?api=1&query=Arno%27s+Butcher+and+Eatery+Narathiwat+Soi+20", createdAt: "2026-11-12T12:00:00+07:00" },
+      { id: "seed-krua-apsorn", name: "Krua Apsorn（Samsen 原店）", area: "Dusit", cuisine: "傳統泰式家常菜", dishes: "黃咖哩蓮莖鮮蝦；炒豬肉配小鳥辣椒；蓬鬆蟹肉蛋餅", michelin: "必比登", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Samsen 原店，米其林必比登只收錄這家，不是 Dinso 分店。只收現金，約 19:00 關門。", maps: "https://www.google.com/maps/search/?api=1&query=Krua+Apsorn+Samsen+Dusit+Bangkok", createdAt: "2026-11-13T00:00:00+07:00" },
+      { id: "seed-wattana", name: "Wattana Panich", area: "Ekkamai", cuisine: "街頭美食／牛肉麵", dishes: "藥膳牛肉麵；慢燉山羊湯", michelin: "無", priceMin: 80, priceMax: 200, status: "想去", rating: 0, notes: "Ekkamai Road。門口那鍋湯已煮四十多年。一樓沒冷氣，每月最後一個週一公休。", maps: "https://www.google.com/maps/search/?api=1&query=Wattana+Panich+336+Ekkamai+Road+Bangkok", createdAt: "2026-11-13T00:00:00+07:00" },
+      { id: "seed-khua-kling", name: "Khua Kling Pak Sod（Thonglor 店）", area: "Thonglor", cuisine: "南泰料理", dishes: "南式乾咖哩絞豬肉（Khua Kling Moo Sab）；黃咖哩椰子嫩芽鱸魚", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Sukhumvit 53。口味正宗很辣。菜單價格另加服務費和 VAT。", maps: "https://www.google.com/maps/search/?api=1&query=Khua+Kling+Pak+Sod+Sukhumvit+53+Bangkok", createdAt: "2026-11-13T00:00:00+07:00" },
+      { id: "seed-thien-duong", name: "Thien Duong", area: "Silom", cuisine: "越南菜", dishes: "蝦春捲；牛肉河粉；河內炒魚 chả cá Lã Vọng", michelin: "必比登", priceMin: 390, priceMax: 590, status: "想去", rating: 0, notes: "Sala Daeng 的 Baan Dusit Thani 百年老宅。人均取自官方一人午餐套餐（現價 ฿390，原價 ฿590）。晚餐建議先訂位。", maps: "https://www.google.com/maps/search/?api=1&query=Thien+Duong+Baan+Dusit+Thani+116+Saladaeng+Bangkok", createdAt: "2026-11-13T00:00:00+07:00" },
+      { id: "seed-tuang", name: "Tuang by Chef Yip", area: "Charoen Krung", cuisine: "港式點心", dishes: "蝦餃；腸粉；鹹蛋黃流沙包；芋頭角", michelin: "無", priceMin: null, priceMax: null, status: "想去", rating: 0, notes: "Charoen Krung 89。只開到 15:00，週一公休，週末要早到。", maps: "https://www.google.com/maps/search/?api=1&query=Tuang+Dim+Sum+Charoen+Krung+89+Bangkok", createdAt: "2026-11-13T00:00:00+07:00" }
+    ];
+
+    var state = {
+      items: [],
+      formMichelin: "無",
+      formStatus: "想去",
+      formRating: 0,
+      pendingDeleteId: null
+    };
+    var toastTimer = null;
+
+    function $(id) { return document.getElementById(id); }
+
+    function escapeHtml(s) {
+      return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+        return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c];
+      });
+    }
+
+    function clone(obj) { return JSON.parse(JSON.stringify(obj)); }
+
+    function isMapsUrl(link) {
+      try {
+        var u = new URL(String(link).trim());
+        if (u.protocol !== "https:") return false;
+        var h = u.hostname;
+        if (h === "maps.app.goo.gl" || h === "goo.gl" || h === "maps.google.com") return true;
+        if ((h === "www.google.com" || h === "google.com") && u.pathname.indexOf("/maps") === 0) return true;
+        return false;
+      } catch (e) {
+        return false;
+      }
+    }
+
+    function mapsUrl(name, link) {
+      if (isMapsUrl(link)) return String(link).trim();
+      return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent((name || "").trim() + " Bangkok");
+    }
+
+    function newId() {
+      return "r-" + Date.now() + "-" + Math.random().toString(36).slice(2, 8);
+    }
+
+    function parseMoney(v) {
+      if (v == null || v === "") return null;
+      var n = Number(v);
+      if (!isFinite(n) || n < 0) return null;
+      return Math.round(n);
+    }
+
+    function priceMid(r) {
+      var a = r.priceMin, b = r.priceMax;
+      if (a != null && b != null) return (a + b) / 2;
+      if (a != null) return a;
+      if (b != null) return b;
+      return null;
+    }
+
+    function formatBahtRange(min, max) {
+      if (min == null && max == null) return "";
+      if (min != null && max != null) {
+        if (min === max) return "฿" + min;
+        return "฿" + min + "–" + max;
+      }
+      if (min != null) return "฿" + min + " 起";
+      return "最高 ฿" + max;
+    }
+
+    function unpackStore(parsed) {
+      if (Array.isArray(parsed)) {
+        return { items: parsed, seedVersion: 1, legacy: true };
+      }
+      if (parsed && Array.isArray(parsed.restaurants)) {
+        return {
+          items: parsed.restaurants,
+          seedVersion: Number(parsed.seedVersion) || 1,
+          legacy: (Number(parsed.version) || 1) < DATA_VERSION
+        };
+      }
+      return null;
+    }
+
+    function mergeSeedUpdates(items) {
+      var byId = {};
+      SEED.forEach(function (s) { byId[s.id] = s; });
+      return items.map(function (item) {
+        var seed = byId[item.id];
+        if (!seed) return item;
+        return normalizeItem(Object.assign({}, item, {
+          dishes: seed.dishes,
+          michelin: seed.michelin,
+          priceMin: seed.priceMin,
+          priceMax: seed.priceMax
+        }));
+      });
+    }
+
+    function loadItems() {
+      try {
+        var raw = localStorage.getItem(STORAGE_KEY);
+        if (raw != null) {
+          var packed = unpackStore(JSON.parse(raw));
+          if (packed) {
+            var items = packed.items.map(normalizeItem);
+            if (packed.seedVersion < SEED_VERSION) items = mergeSeedUpdates(items);
+            saveItems(items);
+            return items;
+          }
+        }
+      } catch (e) {}
+      var seeded = SEED.map(function (r) { return normalizeItem(clone(r)); });
+      saveItems(seeded);
+      return seeded;
+    }
+
+    function normalizeItem(r) {
+      r = r || {};
+      var rating = Number(r.rating);
+      if (!isFinite(rating) || rating < 0) rating = 0;
+      if (rating > 5) rating = 5;
+      rating = Math.round(rating);
+      var status = r.status === "去過" ? "去過" : "想去";
+      var min = parseMoney(r.priceMin);
+      var max = parseMoney(r.priceMax);
+      if (min != null && max != null && min > max) {
+        var tmp = min; min = max; max = tmp;
+      }
+      var mich = MICHELIN.indexOf(r.michelin) >= 0 ? r.michelin : "";
+      return {
+        id: String(r.id || newId()),
+        name: String(r.name || "").trim(),
+        area: String(r.area || "").trim(),
+        cuisine: String(r.cuisine || "").trim(),
+        dishes: String(r.dishes || "").trim(),
+        michelin: mich,
+        priceMin: min,
+        priceMax: max,
+        status: status,
+        rating: rating,
+        notes: String(r.notes || "").trim(),
+        maps: String(r.maps || "").trim(),
+        createdAt: r.createdAt || new Date().toISOString()
+      };
+    }
+
+    function saveItems(items) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        version: DATA_VERSION,
+        seedVersion: SEED_VERSION,
+        restaurants: items
+      }));
+    }
+
+    function uniqueSorted(values) {
+      var seen = {};
+      var out = [];
+      values.forEach(function (v) {
+        var t = String(v || "").trim();
+        if (!t || seen[t]) return;
+        seen[t] = true;
+        out.push(t);
+      });
+      out.sort(function (a, b) { return a.localeCompare(b, "zh-Hant"); });
+      return out;
+    }
+
+    function createdMs(r) {
+      var t = Date.parse(r && r.createdAt);
+      return isFinite(t) ? t : 0;
+    }
+
+    function currentFilters() {
+      return {
+        q: ($("search").value || "").trim().toLowerCase(),
+        area: $("filterArea").value,
+        cuisine: $("filterCuisine").value,
+        status: $("filterStatus").value,
+        michelin: $("filterMichelin").value,
+        budget: parseMoney($("filterBudget").value),
+        sort: $("sortBy").value
+      };
+    }
+
+    function matchesMichelin(r, want) {
+      if (!want) return true;
+      if (want === "必比登或星級") return !!STARRED[r.michelin];
+      return r.michelin === want;
+    }
+
+    function withinBudget(r, budget) {
+      if (budget == null) return true;
+      if (r.priceMin != null) return r.priceMin <= budget;
+      if (r.priceMax != null) return r.priceMax <= budget;
+      return true;
+    }
+
+    function filteredItems() {
+      var f = currentFilters();
+      var list = state.items.filter(function (r) {
+        if (f.area && r.area !== f.area) return false;
+        if (f.cuisine && r.cuisine !== f.cuisine) return false;
+        if (f.status && r.status !== f.status) return false;
+        if (!matchesMichelin(r, f.michelin)) return false;
+        if (!withinBudget(r, f.budget)) return false;
+        if (f.q) {
+          var hay = [r.name, r.area, r.cuisine, r.dishes, r.notes].join(" ").toLowerCase();
+          if (hay.indexOf(f.q) === -1) return false;
+        }
+        return true;
+      });
+      if (f.sort === "rating") {
+        list.sort(function (a, b) {
+          var ar = a.rating || 0, br = b.rating || 0;
+          if (ar !== br) return br - ar;
+          return createdMs(b) - createdMs(a);
+        });
+      } else if (f.sort === "price") {
+        list.sort(function (a, b) {
+          var am = priceMid(a), bm = priceMid(b);
+          var ae = am == null, be = bm == null;
+          if (ae && be) return createdMs(b) - createdMs(a);
+          if (ae) return 1;
+          if (be) return -1;
+          if (am !== bm) return am - bm;
+          return createdMs(b) - createdMs(a);
+        });
+      } else {
+        list.sort(function (a, b) {
+          return createdMs(b) - createdMs(a);
+        });
+      }
+      return list;
+    }
+
+    function fillSelect(sel, values, allLabel, current) {
+      var html = '<option value="">' + escapeHtml(allLabel) + "</option>";
+      values.forEach(function (v) {
+        html += '<option value="' + escapeHtml(v) + '"' + (v === current ? " selected" : "") + ">" + escapeHtml(v) + "</option>";
+      });
+      sel.innerHTML = html;
+    }
+
+    function refreshFilterOptions() {
+      var area = $("filterArea").value;
+      var cuisine = $("filterCuisine").value;
+      fillSelect($("filterArea"), uniqueSorted(state.items.map(function (r) { return r.area; })), "全部區域", area);
+      fillSelect($("filterCuisine"), uniqueSorted(state.items.map(function (r) { return r.cuisine; })), "全部料理", cuisine);
+      $("areaList").innerHTML = uniqueSorted(state.items.map(function (r) { return r.area; })).map(function (v) {
+        return '<option value="' + escapeHtml(v) + '">';
+      }).join("");
+      $("cuisineList").innerHTML = uniqueSorted(state.items.map(function (r) { return r.cuisine; })).map(function (v) {
+        return '<option value="' + escapeHtml(v) + '">';
+      }).join("");
+    }
+
+    function starHtml(rating) {
+      if (!rating) return "";
+      var s = "";
+      for (var i = 1; i <= 5; i++) s += '<span class="' + (i <= rating ? "" : "off") + '">★</span>';
+      return '<span class="stars" aria-label="評分 ' + rating + ' 分">' + s + "</span>";
+    }
+
+    function render() {
+      var list = filteredItems();
+      var total = state.items.length;
+      $("count").textContent = list.length === total
+        ? "共 " + total + " 家"
+        : "顯示 " + list.length + " / " + total + " 家";
+
+      if (!total) {
+        $("list").innerHTML = '<div class="empty"><strong>還沒有任何餐廳</strong>點右下角「新增餐廳」，填店名後就能存進這支手機。也可以先匯入之前備份的 JSON。</div>';
+        return;
+      }
+      if (!list.length) {
+        $("list").innerHTML = '<div class="empty"><strong>沒有符合的餐廳</strong>改一下搜尋或篩選條件試試看。</div>';
+        return;
+      }
+
+      $("list").innerHTML = list.map(function (r) {
+        var href = escapeHtml(mapsUrl(r.name, r.maps));
+        var badge = r.status === "去過" ? "been" : "want";
+        var mich = "";
+        if (r.michelin && r.michelin !== "無") {
+          var cls = r.michelin === "必比登" ? "bib" : "star";
+          mich = '<span class="badge ' + cls + '">' + escapeHtml(r.michelin) + "</span>";
+        }
+        var baht = formatBahtRange(r.priceMin, r.priceMax);
+        return (
+          '<a class="card" href="' + href + '" target="_blank" rel="noopener noreferrer" data-id="' + escapeHtml(r.id) + '">' +
+            '<div class="card-top">' +
+              "<h2>" + escapeHtml(r.name) + "</h2>" +
+              '<div class="card-badges">' +
+                mich +
+                '<span class="badge ' + badge + '">' + escapeHtml(r.status) + "</span>" +
+              "</div>" +
+            "</div>" +
+            '<div class="meta">' +
+              (r.area ? "<span>" + escapeHtml(r.area) + "</span>" : "") +
+              (r.cuisine ? "<span>" + escapeHtml(r.cuisine) + "</span>" : "") +
+              (baht ? '<span class="price">' + escapeHtml(baht) + "</span>" : "") +
+              starHtml(r.rating) +
+            "</div>" +
+            (r.dishes ? '<div class="dishes"><span class="lbl">推薦菜</span> ' + escapeHtml(r.dishes) + "</div>" : "") +
+            (r.notes ? '<div class="notes">' + escapeHtml(r.notes) + "</div>" : "") +
+            '<div class="card-actions">' +
+              '<button type="button" data-edit="' + escapeHtml(r.id) + '">編輯</button>' +
+              '<button type="button" class="del" data-del="' + escapeHtml(r.id) + '">刪除</button>' +
+            "</div>" +
+          "</a>"
+        );
+      }).join("");
+    }
+
+    function toast(msg) {
+      var el = $("toast");
+      el.textContent = msg;
+      el.hidden = false;
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () { el.hidden = true; }, 2200);
+    }
+
+    function openForm(item) {
+      $("formTitle").textContent = item ? "編輯餐廳" : "新增餐廳";
+      $("editId").value = item ? item.id : "";
+      $("fName").value = item ? item.name : "";
+      $("fArea").value = item ? item.area : "";
+      $("fCuisine").value = item ? item.cuisine : "";
+      $("fDishes").value = item ? item.dishes : "";
+      $("fPriceMin").value = item && item.priceMin != null ? item.priceMin : "";
+      $("fPriceMax").value = item && item.priceMax != null ? item.priceMax : "";
+      $("fMaps").value = item ? item.maps : "";
+      $("fNotes").value = item ? item.notes : "";
+      $("formErr").textContent = "";
+      state.formMichelin = item ? (item.michelin || "無") : "無";
+      state.formStatus = item ? item.status : "想去";
+      state.formRating = item ? item.rating : 0;
+      syncSegs();
+      $("formSheet").hidden = false;
+      setTimeout(function () { $("fName").focus(); }, 50);
+    }
+
+    function closeForm() { $("formSheet").hidden = true; }
+
+    function syncSegs() {
+      Array.prototype.forEach.call($("statusSeg").querySelectorAll("button"), function (btn) {
+        btn.setAttribute("aria-pressed", btn.getAttribute("data-status") === state.formStatus ? "true" : "false");
+      });
+      Array.prototype.forEach.call($("michSeg").querySelectorAll("button"), function (btn) {
+        btn.setAttribute("aria-pressed", btn.getAttribute("data-michelin") === state.formMichelin ? "true" : "false");
+      });
+      Array.prototype.forEach.call($("rateSeg").querySelectorAll("button"), function (btn) {
+        btn.setAttribute("aria-pressed", String(btn.getAttribute("data-rating")) === String(state.formRating) ? "true" : "false");
+      });
+    }
+
+    function buildSegs() {
+      $("michSeg").innerHTML = MICHELIN.map(function (v) {
+        return '<button type="button" data-michelin="' + escapeHtml(v) + '">' + escapeHtml(MICHELIN_LABELS[v] || v) + "</button>";
+      }).join("");
+      var html = '<button type="button" data-rating="0">未評</button>';
+      for (var i = 1; i <= 5; i++) html += '<button type="button" data-rating="' + i + '">' + i + "★</button>";
+      $("rateSeg").innerHTML = html;
+    }
+
+    function upsertItem(data) {
+      var idx = -1;
+      for (var i = 0; i < state.items.length; i++) {
+        if (state.items[i].id === data.id) { idx = i; break; }
+      }
+      if (idx >= 0) state.items[idx] = data;
+      else state.items.push(data);
+      saveItems(state.items);
+      refreshFilterOptions();
+      render();
+    }
+
+    function deleteItem(id) {
+      state.items = state.items.filter(function (r) { return r.id !== id; });
+      saveItems(state.items);
+      refreshFilterOptions();
+      render();
+    }
+
+    function exportJson() {
+      var payload = {
+        app: "food-hunter",
+        version: DATA_VERSION,
+        seedVersion: SEED_VERSION,
+        exportedAt: new Date().toISOString(),
+        restaurants: state.items
+      };
+      var blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "food-hunter-backup.json";
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function () {
+        URL.revokeObjectURL(a.href);
+        a.remove();
+      }, 500);
+      toast("已匯出 " + state.items.length + " 家餐廳");
+    }
+
+    function importJsonText(text) {
+      var data = JSON.parse(text);
+      var packed = unpackStore(data) || (data && Array.isArray(data.restaurants) ? unpackStore(data) : null);
+      var rows = packed ? packed.items : (Array.isArray(data) ? data : null);
+      if (!Array.isArray(rows)) throw new Error("格式不對");
+      var items = rows.map(normalizeItem).filter(function (r) { return r.name; });
+      if (!packed || packed.seedVersion < SEED_VERSION) items = mergeSeedUpdates(items);
+      state.items = items;
+      saveItems(state.items);
+      refreshFilterOptions();
+      render();
+      toast("已匯入 " + items.length + " 家餐廳");
+    }
+
+    function setupManifest() {
+      var manifest = {
+        name: "Food Hunter 曼谷美食獵人",
+        short_name: "美食獵人",
+        description: "Bepo 的曼谷口袋美食名單",
+        start_url: ".",
+        scope: ".",
+        display: "standalone",
+        orientation: "portrait",
+        background_color: "#1a1410",
+        theme_color: "#1a1410",
+        lang: "zh-Hant",
+        icons: [
+          { src: "data:image/png;base64," + ICON192, sizes: "192x192", type: "image/png", purpose: "any" },
+          { src: "data:image/png;base64," + ICON512, sizes: "512x512", type: "image/png", purpose: "any" }
+        ]
+      };
+      var blob = new Blob([JSON.stringify(manifest)], { type: "application/manifest+json" });
+      var link = document.createElement("link");
+      link.rel = "manifest";
+      link.href = URL.createObjectURL(blob);
+      document.head.appendChild(link);
+    }
+
+    function setupLogo() {
+      $("appLogo").style.backgroundImage = "url(data:image/png;base64," + ICON192 + ")";
+    }
+
+    function maybeShowInstallHint() {
+      var standalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone;
+      if (standalone) return;
+      if (localStorage.getItem(HINT_KEY) === "1") return;
+      $("installHint").hidden = false;
+    }
+
+    /* events */
+    $("search").addEventListener("input", render);
+    $("filterArea").addEventListener("change", render);
+    $("filterCuisine").addEventListener("change", render);
+    $("filterStatus").addEventListener("change", render);
+    $("filterMichelin").addEventListener("change", render);
+    $("filterBudget").addEventListener("input", render);
+    $("sortBy").addEventListener("change", render);
+    $("btnAdd").addEventListener("click", function () { openForm(null); });
+    $("btnCancel").addEventListener("click", closeForm);
+    $("formSheet").addEventListener("click", function (e) {
+      if (e.target === $("formSheet")) closeForm();
+    });
+    $("confirmSheet").addEventListener("click", function (e) {
+      if (e.target === $("confirmSheet")) $("confirmSheet").hidden = true;
+    });
+    $("btnExport").addEventListener("click", exportJson);
+    $("btnImport").addEventListener("click", function () { $("importFile").click(); });
+    $("importFile").addEventListener("change", function (e) {
+      var file = e.target.files && e.target.files[0];
+      e.target.value = "";
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function () {
+        try { importJsonText(String(reader.result || "")); }
+        catch (err) { toast("匯入失敗，請確認是本 App 匯出的 JSON"); }
+      };
+      reader.readAsText(file, "utf-8");
+    });
+    $("dismissInstall").addEventListener("click", function () {
+      localStorage.setItem(HINT_KEY, "1");
+      $("installHint").hidden = true;
+    });
+
+    $("list").addEventListener("click", function (e) {
+      var edit = e.target.closest("[data-edit]");
+      var del = e.target.closest("[data-del]");
+      if (edit) {
+        e.preventDefault();
+        e.stopPropagation();
+        var item = state.items.filter(function (r) { return r.id === edit.getAttribute("data-edit"); })[0];
+        if (item) openForm(item);
+        return;
+      }
+      if (del) {
+        e.preventDefault();
+        e.stopPropagation();
+        var id = del.getAttribute("data-del");
+        var target = state.items.filter(function (r) { return r.id === id; })[0];
+        state.pendingDeleteId = id;
+        $("confirmMsg").textContent = target ? "「" + target.name + "」會從這支手機的名單移除，匯出備份前刪了就救不回。" : "確定刪除？";
+        $("confirmSheet").hidden = false;
+      }
+    });
+
+    $("btnConfirmNo").addEventListener("click", function () {
+      state.pendingDeleteId = null;
+      $("confirmSheet").hidden = true;
+    });
+    $("btnConfirmYes").addEventListener("click", function () {
+      if (state.pendingDeleteId) {
+        deleteItem(state.pendingDeleteId);
+        toast("已刪除");
+      }
+      state.pendingDeleteId = null;
+      $("confirmSheet").hidden = true;
+    });
+
+    $("statusSeg").addEventListener("click", function (e) {
+      var btn = e.target.closest("[data-status]");
+      if (!btn) return;
+      state.formStatus = btn.getAttribute("data-status");
+      syncSegs();
+    });
+    $("michSeg").addEventListener("click", function (e) {
+      var btn = e.target.closest("[data-michelin]");
+      if (!btn) return;
+      state.formMichelin = btn.getAttribute("data-michelin");
+      syncSegs();
+    });
+    $("rateSeg").addEventListener("click", function (e) {
+      var btn = e.target.closest("[data-rating]");
+      if (!btn) return;
+      state.formRating = Number(btn.getAttribute("data-rating")) || 0;
+      syncSegs();
+    });
+
+    $("restoForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var name = $("fName").value.trim();
+      if (!name) {
+        $("formErr").textContent = "請先填店名";
+        $("fName").focus();
+        return;
+      }
+      var existing = null;
+      var id = $("editId").value;
+      if (id) {
+        for (var i = 0; i < state.items.length; i++) {
+          if (state.items[i].id === id) existing = state.items[i];
+        }
+      }
+      var item = normalizeItem({
+        id: id || newId(),
+        name: name,
+        area: $("fArea").value.trim(),
+        cuisine: $("fCuisine").value.trim(),
+        dishes: $("fDishes").value.trim(),
+        michelin: state.formMichelin,
+        priceMin: $("fPriceMin").value,
+        priceMax: $("fPriceMax").value,
+        status: state.formStatus,
+        rating: state.formRating,
+        notes: $("fNotes").value.trim(),
+        maps: $("fMaps").value.trim(),
+        createdAt: existing ? existing.createdAt : new Date().toISOString()
+      });
+      upsertItem(item);
+      closeForm();
+      toast(existing ? "已更新" : "已新增");
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") {
+        closeForm();
+        $("confirmSheet").hidden = true;
+      }
+    });
+
+    window.FoodHunter = {
+      STORAGE_KEY: STORAGE_KEY,
+      DATA_VERSION: DATA_VERSION,
+      SEED_VERSION: SEED_VERSION,
+      SEED: SEED,
+      loadItems: loadItems,
+      mergeSeedUpdates: mergeSeedUpdates,
+      unpackStore: unpackStore,
+      mapsUrl: mapsUrl,
+      isMapsUrl: isMapsUrl,
+      normalizeItem: normalizeItem,
+      formatBahtRange: formatBahtRange,
+      priceMid: priceMid,
+      getState: function () { return state; },
+      setItems: function (items) {
+        state.items = items.map(normalizeItem);
+        saveItems(state.items);
+        refreshFilterOptions();
+        render();
+      },
+      render: render,
+      filteredItems: filteredItems
+    };
+
+    setupManifest();
+    setupLogo();
+    buildSegs();
+    state.items = loadItems();
+    refreshFilterOptions();
+    render();
+    maybeShowInstallHint();
+  })();
+  </script>
+</body>
+</html>
